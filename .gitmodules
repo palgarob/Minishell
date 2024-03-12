@@ -1,0 +1,6 @@
+[submodule "readline"]
+	path = readline
+	url = https://git.savannah.gnu.org/git/readline.git
+[submodule "libft-improved"]
+	path = libft-improved
+	url = git@github.com:palgarob/libft-improved.git
