@@ -4,23 +4,38 @@ FT_DIR	= libft-improved
 RL_DIR	= readline
 SRC_DIR	= src
 OBJ_DIR	= obj
+INC_DIR	= inc
 
-CFLAGS		= -Wall -Wextra -Werror
-LIBFT_FLAGS	= -lft -L$(FT_DIR)
-RL_FLAGS	= -lreadline -L$(RL_DIR)
+FT_LINKER	= -L$(FT_DIR)
+RL_LINKER	= -L$(RL_DIR)
+FT_LIB		= -lft
+RL_LIB		= -lreadline
+
+RM		= rm -rf
+CFLAGS	= -Wall -Wextra -Werror -I$(INC_DIR)
+LDFLAGS	= $(FT_LINKER) $(RL_LINKER)
+LDLIBS	= $(FT_LIB) $(RL_LIB)
 
 FILES	= $(basename $(notdir $(wildcard src/*.c)))
-SRC		= $(addsuffix .c,$(addprefix $(SRC_DIR),$(FILES)))
-OBJ		= $(addsuffix .o,$(addprefix $(OBJ_DIR),$(FILES)))
+SRC		= $(addsuffix .c,$(addprefix $(SRC_DIR)/,$(FILES)))
+OBJ		= $(addsuffix .o,$(addprefix $(OBJ_DIR)/,$(FILES)))
 
 .PHONY : all re clean fclean
 
 all : $(NAME)
+	@$(MAKE) -C $(FT_DIR)
 
-$(NAME) : $(OBJ_DIR)
-	$(MAKE) -C $(FT_DIR)
-	cc $(LIBFT_FLAGS) $(RL_FLAGS) -o $(NAME)
+$(NAME) : $(OBJ)
+	$(CC) $(OBJ) $(LDFLAGS) $(LDLIBS) -o $(NAME)
 
-$(OBJ_DIR)/%.o : $(SRC_DIR)/%.c #minishell.h
-	cc 
+$(OBJ) : $(SRC)
+	mkdir -p $(OBJ_DIR)
+	$(CC) $(SRC) $(CFLAGS) -c -o $(OBJ)
 
+re : fclean all
+
+fclean : clean
+	$(RM) $(NAME)
+
+clean :
+	$(RM) $(OBJ_DIR)
