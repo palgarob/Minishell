@@ -6,24 +6,19 @@ SRC_DIR	= src
 OBJ_DIR	= obj
 INC_DIR	= inc
 
-FT_LINKER	= -L$(FT_DIR)
-RL_LINKER	= -L$(RL_DIR)
-FT_LIB		= -lft
-RL_LIB		= -lreadline
-
 RM		= rm -rf
 CFLAGS	= -Wall -Wextra -Werror -I$(INC_DIR)
-LDFLAGS	= $(FT_LINKER) $(RL_LINKER)
-LDLIBS	= $(FT_LIB) $(RL_LIB)
+LDFLAGS	= -Llibft-improved
+LDLIBS	= -lft -lreadline
 
 FILES	= $(basename $(notdir $(wildcard src/*.c)))
 SRC		= $(addsuffix .c,$(addprefix $(SRC_DIR)/,$(FILES)))
 OBJ		= $(addsuffix .o,$(addprefix $(OBJ_DIR)/,$(FILES)))
 
-.PHONY : all re clean fclean
+.PHONY : all re clean fclean ft
+.SILENT :
 
-all : $(NAME)
-	@$(MAKE) -C $(FT_DIR)
+all : ft $(NAME)
 
 $(NAME) : $(OBJ)
 	$(CC) $(OBJ) $(LDFLAGS) $(LDLIBS) -o $(NAME)
@@ -32,6 +27,9 @@ $(OBJ) : $(SRC)
 	mkdir -p $(OBJ_DIR)
 	$(CC) $(SRC) $(CFLAGS) -c -o $(OBJ)
 
+ft :
+	$(MAKE) -C $(FT_DIR)
+
 re : fclean all
 
 fclean : clean
@@ -39,3 +37,4 @@ fclean : clean
 
 clean :
 	$(RM) $(OBJ_DIR)
+	$(MAKE) -C $(FT_DIR) fclean
