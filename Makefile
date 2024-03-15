@@ -23,9 +23,9 @@ all : ft $(NAME)
 $(NAME) : $(OBJ)
 	$(CC) $(OBJ) $(LDFLAGS) $(LDLIBS) -o $(NAME)
 
-$(OBJ) : $(SRC)
+$(OBJ_DIR)/%.o : $(SRC_DIR)/%.c
 	mkdir -p $(OBJ_DIR)
-	$(CC) $(SRC) $(CFLAGS) -c -o $(OBJ)
+	$(CC) -c $(CFLAGS) $< -o $@
 
 ft :
 	$(MAKE) -C $(FT_DIR)

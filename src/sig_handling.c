@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   sig_handling.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/13 14:23:30 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/14 21:37:42 by pepaloma         ###   ########.fr       */
+/*   Created: 2024/03/14 21:19:41 by pepaloma          #+#    #+#             */
+/*   Updated: 2024/03/14 21:55:52 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_T
-# define MINISHELL_T
+#include "minishell.h"
 
-# include <readline/readline.h>
-# include <signal.h>
+void	handler(int signum)
+{
+	if (signum == )
+}
 
-# include "../libft-improved/inc/libft.h"
+void	sig_handling(void)
+{
+	struct sigaction	act;
 
-# define ERROR_RL "There was a memory error or an EOF was passed to readline\n"
-
-void	sig_handling(void);
-
-#endif
+	act.sa_handler = handler;
+	act.sa_flags = SA_RESTART;
+	sigaction(SIGINT, &act, NULL);
+}
