@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 21:19:41 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/14 21:55:52 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/15 15:13:49 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 
 void	handler(int signum)
 {
-	if (signum == )
+	if (signum == SIGINT)
+		current_signal = SIGINT;
+	if (signum == SIGQUIT)
+		current_signal = SIGQUIT;
 }
 
 void	sig_handling(void)
@@ -24,4 +27,6 @@ void	sig_handling(void)
 	act.sa_handler = handler;
 	act.sa_flags = SA_RESTART;
 	sigaction(SIGINT, &act, NULL);
+	sigaction(SIGQUIT, &act, NULL);
 }
+
