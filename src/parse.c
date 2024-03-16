@@ -1,36 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/13 14:22:50 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/16 23:08:36 by pepaloma         ###   ########.fr       */
+/*   Created: 2024/03/16 22:34:17 by pepaloma          #+#    #+#             */
+/*   Updated: 2024/03/16 23:07:20 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	prompt(void)
+int	parse_line(char *line)
 {
-	static char			*line;
+	char	**line_args;
 
-//	sig_handling();
-	if (line)
-		free(line);	
-	line = readline("$ ");
-	if (!line)
-		exit (1);
-	if (*line)
-		add_history(line);
-	if (parse_line(line))
-		
-}
-
-int	main(void)
-{
-	while (1)
-		prompt();
-	return (0);
+	line_args = ft_split(line, ' ');
 }
