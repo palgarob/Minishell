@@ -6,31 +6,32 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:22:50 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/16 23:08:36 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/18 14:24:39 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	prompt(void)
+void	take(char *line)
 {
-	static char			*line;
-
-//	sig_handling();
-	if (line)
-		free(line);	
-	line = readline("$ ");
 	if (!line)
-		exit (1);
+		exit(0);
 	if (*line)
 		add_history(line);
-	if (parse_line(line))
-		
 }
 
 int	main(void)
 {
+	char	*line;
+	
+	//sighandling
 	while (1)
-		prompt();
+	{
+		line = readline("$ ");
+		take(line);
+		if (parse(line))
+			ft_error(ERR_PARSE, 0, 0, 1); // Aquí habría que liberar la línea
+		enter(line);
+	}
 	return (0);
 }

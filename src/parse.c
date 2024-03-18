@@ -6,15 +6,15 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 22:34:17 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/16 23:07:20 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/18 15:42:15 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	parse_line(char *line)
+int	parse(char *line)
 {
-	char	**line_args;
+	char	**args;
 
-	line_args = ft_split(line, ' ');
+	args = ft_split(line, ' ');
 }

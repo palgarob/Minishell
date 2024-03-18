@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:23:30 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/15 15:12:32 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/18 14:26:16 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@
 
 # include "../libft-improved/inc/libft.h"
 
-# define ERROR_RL "There was a memory error or an EOF was passed to readline\n"
+# define ERR_PARSE "Error on parse\n"
 
 extern int	current_signal;
 
 void	sig_handling(void);
+int		parse(char *line);
 
 #endif
