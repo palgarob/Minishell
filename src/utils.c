@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sig_handling.c                                     :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/14 21:19:41 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/20 18:43:24 by pepaloma         ###   ########.fr       */
+/*   Created: 2024/03/20 14:31:42 by pepaloma          #+#    #+#             */
+/*   Updated: 2024/03/20 14:38:19 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* #include "minishell.h"
+#include "minishell.h"
 
-void	handler(int signum)
+bool	is_metachar(char c)
 {
-	if (signum == SIGINT)
-		current_signal = SIGINT;
-	if (signum == SIGQUIT)
-		current_signal = SIGQUIT;
+	if (
+		c == '|' || c == '<' || c == '>'
+	)
+		return (true);
+	return (false);
 }
-
-void	sig_handling(void)
-{
-	struct sigaction	act;
-
-	act.sa_handler = handler;
-	act.sa_flags = SA_RESTART;
-	sigaction(SIGINT, &act, NULL);
-	sigaction(SIGQUIT, &act, NULL);
-} */
 

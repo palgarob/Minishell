@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:23:30 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/18 14:26:16 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/20 18:38:59 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,23 @@
 
 # include "../libft-improved/inc/libft.h"
 
-# define ERR_PARSE "Error on parse\n"
+# define ERR_SYNTAX "Syntax error\n"
+
+typedef struct s_ioflow
+{
+	int					input;
+	int					output;
+	int					pipe_end[2];
+	char				**command;
+	struct s_ioflow		*ioflow;
+}	t_ioflow;
 
 extern int	current_signal;
 
 void	sig_handling(void);
-int		parse(char *line);
+char	**parse(char *line);
+char	**ft_split_shell(char *line);
+bool	is_metachar(char c);
+
 
 #endif
