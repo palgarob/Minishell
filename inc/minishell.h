@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:23:30 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/20 18:38:59 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/20 23:00:20 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 # include "../libft-improved/inc/libft.h"
 
+# define ERR_PARSE "Parse error\n"
 # define ERR_SYNTAX "Syntax error\n"
 
 typedef struct s_ioflow
@@ -35,6 +36,6 @@ void	sig_handling(void);
 char	**parse(char *line);
 char	**ft_split_shell(char *line);
 bool	is_metachar(char c);
-
+char	*ft_getenv(char *var_name);
 
 #endif

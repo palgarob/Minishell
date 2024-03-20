@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:22:50 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/20 20:12:09 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/20 22:38:55 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,9 @@ int	main(void)
 	char		*line;
 	t_ioflow	ioflow;
 	
-	//sighandling
 	while (1)
 	{
-		line = readline("$ ");
+		line = readline("$>");
 		if (*line) // Aquí quizás se podría poner el control de la señal
 		{
 			take(line);
