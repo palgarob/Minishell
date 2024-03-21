@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 16:02:43 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/21 02:59:43 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/21 14:22:37 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,7 @@ char	**ft_split_shell(char *line)
 	char	**split;
 	int		position;
 
-	split = (char **)malloc(sizeof(char *) * 1);
-	*split = NULL;
+	split = NULL;
 	while (*line)
 	{
 		if (*line == ' ')

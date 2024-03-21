@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:23:30 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/21 03:35:38 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/21 15:11:41 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,11 @@
 typedef struct s_ioflow
 {
 	int					input;
+	bool				close_in;
 	int					output;
+	bool				close_out;
 	int					pipe_end[2];
+	bool				close_pipe;
 	char				**command;
 	struct s_ioflow		*ioflow;
 }	t_ioflow;
