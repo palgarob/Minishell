@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 16:02:43 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/20 22:35:26 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/21 00:17:12 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static int	stract_argument(char *line, char ***split_ptr)
 			quote = line[position++];
 			while (line[position] != quote)
 				if (!line[position++])
-					return (perror(ERR_PARSE), 0);
+					return (perror("Unclosed quotes"), 0);
 		}
 		position++;
 	}

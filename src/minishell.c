@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:22:50 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/20 22:38:55 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/21 01:01:58 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,9 @@ int	main(void)
 			take(line);
 			init_ioflow(&ioflow);
 			ioflow.command = parse(line);
-			if (!ioflow.command)
-				return (perror(ERR_PARSE), 1); // Aquí habría que liberar la línea
-			while (*ioflow.command)
-				ft_printf("*%s*\n", *(ioflow.command++));
+			if (ioflow.command)
+				while (*ioflow.command)
+					ft_printf("*%s*\n", *(ioflow.command++));
 		}
 	}
 	return (0);

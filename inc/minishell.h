@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:23:30 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/20 23:00:20 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/21 00:15:24 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 
 # include "../libft-improved/inc/libft.h"
 
-# define ERR_PARSE "Parse error\n"
-# define ERR_SYNTAX "Syntax error\n"
+# define ERR_PARSE "Parse error"
+# define ERR_SYNTAX "Syntax error"
 
 typedef struct s_ioflow
 {

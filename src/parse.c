@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 22:34:17 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/20 23:10:29 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/21 01:00:09 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,36 @@ int	access_values(char **args)
 	return (0);
 }
 
+int	trim_quotes(char **args)
+{
+	int		j;
+	int		i;
+	
+	i = -1;
+	while (args[++i])
+	{
+		j = -1;
+		while (args[i][++j])
+		{
+			if (args[i][j] == '"')
+			{
+				ft_strins(&args[i], j, j + 1, "");
+				while (args[i][j] != '"')
+					j++;
+				ft_strins(&args[i], j, j + 1, "");
+			}
+			if (args[i][j] == '\'')
+			{
+				ft_strins(&args[i], j, j + 1, "");
+				while (args[i][j] != '\'')
+					j++;
+				ft_strins(&args[i], j, j + 1, "");
+			}	
+		}
+	}
+	return (0);
+}
+
 char	**parse(char *line)
 {
 	char	**args;
@@ -90,7 +120,7 @@ char	**parse(char *line)
 		return (NULL);
 	if (syntax(args))
 		return (perror(ERR_SYNTAX), ft_splitfree(args), NULL);
-	if (access_values(args))
+	if (access_values(args) || trim_quotes(args))
 		return (ft_splitfree(args), NULL);
 	return (args);
 	
