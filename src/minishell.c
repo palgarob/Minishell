@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:22:50 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/21 03:02:20 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/21 03:36:11 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,11 @@ void	init_ioflow(t_ioflow *ioflow, char **args)
 	ioflow->input = STDIN_FILENO;
 	ioflow->output = STDOUT_FILENO;
 	ioflow->ioflow = NULL;
-	ioflow->command = NULL
+	ioflow->command = NULL;
 	while (*args)
 	{
-		if (**args !=)
+		if (!is_metachar(**args))
+			if (access_values(args))
 	}
 }
 
