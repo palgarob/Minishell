@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 14:31:42 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/22 11:07:23 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/22 20:54:44 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ char	*get_cmd_path(char **path_var_dir, char *cmd_name)
 {
 	char	*cmd_path;
 
+	ft_printf("hooa");
 	while (*path_var_dir)
 	{
 		cmd_path = (char *)malloc(

@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 03:25:16 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/21 03:26:00 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/22 20:48:06 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,27 +42,22 @@ static int	insert_value(char **args, int j)
 
 int	access_values(char **args)
 {
-	int		i;
 	int		j;
 
-	i = -1;
-	while (args[++i])
+	j = -1;
+	while ((*args)[++j])
 	{
-		j = -1;
-		while (args[i][++j])
+		if ((*args)[j] == '\'')
 		{
-			if (args[i][j] == '\'')
-			{
-				j++;
-				while (args[i][j++] != '\'')
-					;
-			}
-			if (args[i][j] == '$' && args[i][j + 1] != ' '
-					&& args[i][j + 1] != '?' && args[i][j + 1] != 0)
-			{
-				if (insert_value(&(args[i]), j))
-					return (1);
-			}
+			j++;
+			while ((*args)[j++] != '\'')
+				;
+		}
+		if ((*args)[j] == '$' && (*args)[j + 1] != ' '
+				&& (*args)[j + 1] != '?' && (*args)[j + 1] != 0)
+		{
+			if (insert_value(args, j))
+				return (1);
 		}
 	}
 	return (0);
