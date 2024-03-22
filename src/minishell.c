@@ -6,11 +6,13 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:22:50 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/21 15:18:07 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/22 11:06:34 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern char **environ;
 
 void	take(char *line)
 {
@@ -36,22 +38,26 @@ int	redirect_io(t_ioflow *ioflow, char **args)
 			return (perror((*args) + 1), 1);
 		ioflow->close_out = true;
 	}
+	return (0);
 }
 
 int	init_ioflow(t_ioflow *ioflow, char **args)
 {
+	ioflow->ioflow = NULL;
 	ioflow->input = STDIN_FILENO;
 	ioflow->output = STDOUT_FILENO;
-	ioflow->ioflow = NULL;
 	ioflow->command = NULL;
 	ioflow->close_in = false;
 	ioflow->close_out = false;
 	ioflow->close_pipe = false;
+	ioflow->path_var = get_path_var();
 	while (*args)
 	{
 		if (!is_metachar(**args))
+		{
 			if (access_values(args) || trim_quotes(args))
-				ioflow->command = ft_splitadd(*args, &ioflow->command);
+				ft_splitadd(*args, &ioflow->command);
+		}
 		else if (**args == '>' || **args == '<')
 		{
 			if (redirect_io(ioflow, args))
@@ -67,17 +73,29 @@ int	init_ioflow(t_ioflow *ioflow, char **args)
 	return (0);
 }
 
-void	enter(t_ioflow ioflow)
+int	enter(t_ioflow ioflow)
 {
 	pid_t	pid;
-
+	char	*cmd_path;
 	
+	cmd_path = get_cmd_path(ioflow.path_var, *ioflow.command);
+	pid = fork();
+	/* if (pid < 0)
+		return (clear_ioflow(ioflow), 1); */
+	if (!pid)
+	{
+		if (dup2(ioflow.input, STDIN_FILENO) || dup2(ioflow.output, STDOUT_FILENO))
+			return (perror(0), /* clear_ioflow(ioflow), */1);
+		execve(cmd_path, ioflow.command, environ);
+	}
+	waitpid(pid, NULL, WNOHANG);
+	return (0);
 }
 
 int	main(void)
 {
 	char		*line;
-	char		*args;
+	char		**args;
 	t_ioflow	ioflow;
 	
 	while (1)

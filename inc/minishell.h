@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:23:30 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/21 15:11:41 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/22 10:56:42 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_ioflow
 	int					pipe_end[2];
 	bool				close_pipe;
 	char				**command;
+	char				**path_var;
 	struct s_ioflow		*ioflow;
 }	t_ioflow;
 
@@ -42,5 +43,7 @@ bool	is_metachar(char c);
 char	*ft_getenv(char *var_name);
 int		trim_quotes(char **args);
 int 	access_values(char **args);
+char	**get_path_var(void);
+char	*get_cmd_path(char **path_var_dir, char *cmd_name);
 
 #endif
