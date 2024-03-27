@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:22:50 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/22 20:54:28 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/27 17:30:28 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ int	init_ioflow(t_ioflow *ioflow, char **args)
 		if (!is_metachar(**args))
 		{
 			if (access_values(args) || trim_quotes(args))
-				ft_splitadd(*args, &ioflow->command);
+				return (1);
+			ft_splitadd(*args, &ioflow->command);
 		}
 		else if (**args == '>' || **args == '<')
 		{
@@ -88,7 +89,7 @@ int	enter(t_ioflow ioflow)
 			return (perror(0), clear_ioflow(ioflow), 1); */
 		execve(cmd_path, ioflow.command, environ);
 	}
-	waitpid(pid, NULL, WNOHANG);
+	waitpid(-1, NULL, WNOHANG);
 	return (0);
 }
 
@@ -108,7 +109,9 @@ int	main(void)
 			if (args)
 			{
 				if (!init_ioflow(&ioflow, args))
+				{
 					enter(ioflow);
+				}
 			}
 		}
 	}

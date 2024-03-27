@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 14:31:42 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/22 20:54:44 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/27 16:50:01 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,23 +42,18 @@ char	*ft_getenv(char *var_name)
 int	trim_quotes(char **args)
 {
 	int		j;
-	int		i;
 	int		quote;
 	
-	i = -1;
-	while (args[++i])
+	j = -1;
+	while ((*args)[++j])
 	{
-		j = -1;
-		while (args[i][++j])
+		if ((*args)[j] == '"' || (*args)[j] == '\'')
 		{
-			if (args[i][j] == '"' || args[i][j] == '\'')
-			{
-				quote = args[i][j];
-				ft_strins(&args[i], j, j + 1, "");
-				while (args[i][j] != quote)
-					j++;
-				ft_strins(&args[i], j, j + 1, "");
-			}
+			quote = (*args)[j];
+			ft_strins(args, j, j + 1, "");
+			while ((*args)[j] != quote)
+				j++;
+			ft_strins(args, j, j + 1, "");
 		}
 	}
 	return (0);
@@ -78,7 +73,6 @@ char	*get_cmd_path(char **path_var_dir, char *cmd_name)
 {
 	char	*cmd_path;
 
-	ft_printf("hooa");
 	while (*path_var_dir)
 	{
 		cmd_path = (char *)malloc(
