@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:23:30 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/22 20:25:01 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/27 23:21:11 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <readline/readline.h>
 # include <signal.h>
+# include <sys/wait.h>
 
 # include "../libft-improved/inc/libft.h"
 

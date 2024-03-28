@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:22:50 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/27 17:30:28 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/27 23:34:35 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	enter(t_ioflow ioflow)
 			return (perror(0), clear_ioflow(ioflow), 1); */
 		execve(cmd_path, ioflow.command, environ);
 	}
-	waitpid(-1, NULL, WNOHANG);
+	wait(NULL);
 	return (0);
 }
 
