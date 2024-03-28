@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:22:50 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/28 11:44:31 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/28 12:37:51 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,6 @@ int	main(void)
 			{
 				if (!init_ioflow(&ioflow, args))
 				{
-					ft_splitfree(args);
 					enter(ioflow);
 					clear_ioflow(ioflow);
 				}

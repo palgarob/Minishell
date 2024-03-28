@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 11:22:49 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/28 11:45:36 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/28 12:19:18 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,5 @@ void	clear_ioflow(t_ioflow ioflow)
 		close(ioflow.pipe_end[0]);
 		close(ioflow.pipe_end[1]);
 	}
+	// super importante ver como se almacenan los args y los comandos para poder liberarlos correctamente
 }
