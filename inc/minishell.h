@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:23:30 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/27 23:21:11 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/28 11:39:41 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,6 @@ int		trim_quotes(char **args);
 int 	access_values(char **args);
 char	**get_path_var(void);
 char	*get_cmd_path(char **path_var_dir, char *cmd_name);
+void	clear_ioflow(t_ioflow ioflow);
 
 #endif

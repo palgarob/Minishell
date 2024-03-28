@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:22:50 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/27 23:34:35 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/28 11:40:38 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,17 @@ int	redirect_io(t_ioflow *ioflow, char **args)
 {
 	if (**args == '>')
 	{
-		ioflow->output = open((*args) + 1, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		ioflow->output = open(*(args + 1), O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		if (ioflow->output < 0)
-			return (perror((*args) + 1), 1);
+			return (perror(*(args + 1)), 1);
 		ioflow->close_out = true;
 	}
 	else if (**args == '<')
 	{
-		ioflow->input = open((*args) + 1, O_RDONLY);
+		ioflow->input = open(*(args + 1), O_RDONLY);
 		if (ioflow->input < 0)
-			return (perror((*args) + 1), 1);
-		ioflow->close_out = true;
+			return (perror(*(args + 1)), 1);
+		ioflow->close_in = true;
 	}
 	return (0);
 }
@@ -44,8 +44,6 @@ int	redirect_io(t_ioflow *ioflow, char **args)
 int	init_ioflow(t_ioflow *ioflow, char **args)
 {
 	ioflow->ioflow = NULL;
-	ioflow->input = STDIN_FILENO;
-	ioflow->output = STDOUT_FILENO;
 	ioflow->command = NULL;
 	ioflow->close_in = false;
 	ioflow->close_out = false;
@@ -74,23 +72,36 @@ int	init_ioflow(t_ioflow *ioflow, char **args)
 	return (0);
 }
 
-int	enter(t_ioflow ioflow)
+void	enter(t_ioflow ioflow)
 {
 	pid_t	pid;
 	char	*cmd_path;
+	int		i;
 	
+	i = 0;
 	cmd_path = get_cmd_path(ioflow.path_var, *ioflow.command);
 	pid = fork();
-	/* if (pid < 0)
-		return (clear_ioflow(ioflow), 1); */
+	if (pid < 0)
+	{
+		perror(0);
+		return ;
+	}
 	if (!pid)
 	{
-		/* if (dup2(ioflow.input, STDIN_FILENO) || dup2(ioflow.output, STDOUT_FILENO))
-			return (perror(0), clear_ioflow(ioflow), 1); */
+		if (ioflow.close_in && dup2(ioflow.input, STDIN_FILENO) < 0)
+		{
+			perror(0);
+			return ;
+		}
+		if (ioflow.close_out && dup2(ioflow.output, STDOUT_FILENO) < 0)
+		{
+			perror(0);
+			return ;
+		}
 		execve(cmd_path, ioflow.command, environ);
 	}
+	free(cmd_path);
 	wait(NULL);
-	return (0);
 }
 
 int	main(void)
@@ -105,12 +116,13 @@ int	main(void)
 		if (*line) // Aquí quizás se podría poner el control de la señal
 		{
 			take(line);
-			args = parse(line);
+			args = parse(line); // mirar que hacer si le pasamos espacios o tabs vacíos
 			if (args)
 			{
 				if (!init_ioflow(&ioflow, args))
 				{
 					enter(ioflow);
+					clear_ioflow(ioflow);
 				}
 			}
 		}
