@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/28 09:06:00 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/28 09:20:06 by pepaloma         ###   ########.fr       */
+/*   Created: 2024/03/28 11:22:49 by pepaloma          #+#    #+#             */
+/*   Updated: 2024/03/28 11:45:36 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,4 @@ void	clear_ioflow(t_ioflow ioflow)
 		close(ioflow.pipe_end[0]);
 		close(ioflow.pipe_end[1]);
 	}
-	ft_splitfree(ioflow.path_var);
 }
