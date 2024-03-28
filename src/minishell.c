@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:22:50 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/27 23:34:35 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/28 09:54:36 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ int	redirect_io(t_ioflow *ioflow, char **args)
 {
 	if (**args == '>')
 	{
-		ioflow->output = open((*args) + 1, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		ioflow->output = open(*(args + 1), O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		if (ioflow->output < 0)
 			return (perror((*args) + 1), 1);
 		ioflow->close_out = true;
 	}
 	else if (**args == '<')
 	{
-		ioflow->input = open((*args) + 1, O_RDONLY);
+		ioflow->input = open(*(args + 1), O_RDONLY);
 		if (ioflow->input < 0)
 			return (perror((*args) + 1), 1);
 		ioflow->close_out = true;
@@ -78,15 +78,19 @@ int	enter(t_ioflow ioflow)
 {
 	pid_t	pid;
 	char	*cmd_path;
+	int		i;
 	
 	cmd_path = get_cmd_path(ioflow.path_var, *ioflow.command);
 	pid = fork();
-	/* if (pid < 0)
-		return (clear_ioflow(ioflow), 1); */
+	i = 0;
+	while (ioflow.command[i])
+		ft_printf("%s\n", ioflow.command[i++]);
+	if (pid < 0)
+		return (clear_ioflow(ioflow), 1);
 	if (!pid)
 	{
-		/* if (dup2(ioflow.input, STDIN_FILENO) || dup2(ioflow.output, STDOUT_FILENO))
-			return (perror(0), clear_ioflow(ioflow), 1); */
+		if (dup2(ioflow.input, STDIN_FILENO) || dup2(ioflow.output, STDOUT_FILENO))
+			return (perror(0), clear_ioflow(ioflow), 1);
 		execve(cmd_path, ioflow.command, environ);
 	}
 	wait(NULL);
@@ -110,6 +114,7 @@ int	main(void)
 			{
 				if (!init_ioflow(&ioflow, args))
 				{
+					ft_splitfree(args);
 					enter(ioflow);
 				}
 			}
