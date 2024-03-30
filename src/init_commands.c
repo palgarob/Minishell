@@ -42,8 +42,6 @@ int	init_pipes(t_command *command, char **split_line)
 				return (perror(0), 1);
 			if (pipe(command->command->pipe_end) < 0)
 				return (perror(0), 1);
-			command->output = command->command->pipe_end[1];
-			command->command->input = command->command->pipe_end[0];
 			command = command->command;
 			command->close_pipe = true;
 			command->command = NULL;

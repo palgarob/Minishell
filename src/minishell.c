@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:22:50 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/29 20:51:15 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/30 08:59:46 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ int	main(void)
 			if (split_line)
 			{
 				if (!init_commands(&command, split_line))
-					exec_commands(command);
+					exec_commands(&command);
 				ft_splitfree(split_line);
-				clear_commands(command); // piensa en el tema de cómo liberar split_line, cómo está guardado, etc.
+				clear_commands(&command); // piensa en el tema de cómo liberar split_line, cómo está guardado, etc.
 			}
-		}
+		} // recuerda manejar pipes con comandos vacíos y esas movidas
 	}
 	return (0);
 }
