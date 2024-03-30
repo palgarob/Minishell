@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 11:22:49 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/30 01:27:03 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/30 10:55:33 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,20 @@ void	close_pipe(t_command command)
 	close(command.pipe_end[1]);
 }
 
+void	close_pipes(t_command command)
+{
+	if (command.close_pipe)
+		close_pipe(command);
+	if (command.command)
+		close_pipes(*command.command);
+}
+
 void	clear_commands(t_command command)
 {
 	if (command.close_in)
 		close(command.input);
 	if (command.close_out)
 		close(command.output);
-	if (command.close_pipe)
-		close_pipe(command);
 	ft_splitfree(command.path_var);
 	if (command.command)
 		clear_commands(*command.command);
