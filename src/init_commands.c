@@ -6,13 +6,13 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 19:38:48 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/30 14:55:16 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/30 15:15:57 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	redirect_io(t_command *command, char **split_line)
+static int	redirect_io(t_command *command, char **split_line)
 {
 	if (**split_line == '>')
 	{
@@ -32,7 +32,7 @@ int	redirect_io(t_command *command, char **split_line)
 	return (0);
 }
 
-int	init_pipes(t_command *command, char **split_line)
+static int	init_pipes(t_command *command, char **split_line)
 {
 	while (*split_line)
 	{
@@ -57,7 +57,7 @@ int	init_pipes(t_command *command, char **split_line)
 	return (0);
 }
 
-int	init_arguments(t_command *command, char **split_line)
+static int	init_arguments(t_command *command, char **split_line)
 {
 	while (*split_line)
 	{

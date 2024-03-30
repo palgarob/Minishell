@@ -6,13 +6,13 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 11:22:49 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/30 14:30:40 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/30 15:17:34 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	close_pipe(t_command command)
+static void	close_pipe(t_command command)
 {
 	close(command.pipe_end[0]);
 	close(command.pipe_end[1]);

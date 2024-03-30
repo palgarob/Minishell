@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:23:30 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/30 10:59:04 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/30 15:18:16 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ char	**get_path_var(void);
 char	*get_cmd_path(char **path_var_dir, char *cmd_name);
 
 void	clear_commands(t_command command);
-void	close_pipe(t_command command);
 void	close_pipes(t_command command);
 
 int		access_values(char **split_line);

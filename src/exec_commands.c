@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 19:52:16 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/30 14:58:13 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/30 15:16:42 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 extern char	**environ;
 
-int	pipes(t_command command)
+static int	pipes(t_command command)
 {
 	if (command.command)
 		if (dup2(command.command->pipe_end[1], STDOUT_FILENO) < 0)

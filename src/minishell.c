@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:22:50 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/30 15:01:41 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/30 15:14:56 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	take(char *line)
 		add_history(line);
 }
 
-void	enter(t_command command)
+static void	enter(t_command command)
 {
 	pid_t		wait_process;
 
