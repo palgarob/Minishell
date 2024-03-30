@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 14:31:42 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/27 16:50:01 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/30 14:56:46 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	trim_quotes(char **args)
 {
 	int		j;
 	int		quote;
-	
+
 	j = -1;
 	while ((*args)[++j])
 	{

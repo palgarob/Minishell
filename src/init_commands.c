@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_commands.c                                      :+:      :+:    :+:   */
+/*   init_commands.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 19:38:48 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/28 20:08:48 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/30 14:55:16 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ int	redirect_io(t_command *command, char **split_line)
 {
 	if (**split_line == '>')
 	{
-		command->output = open(*(split_line + 1), O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		command->output = open(*(split_line + 1),
+				O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		if (command->output < 0)
 			return (perror(*(split_line + 1)), 1);
 		command->close_out = true;
@@ -47,9 +48,7 @@ int	init_pipes(t_command *command, char **split_line)
 			command->close_pipe = true;
 			command->command = NULL;
 			command->arguments = NULL;
-			command->input = STDIN_FILENO;
 			command->close_in = false;
-			command->output = STDOUT_FILENO;
 			command->close_out = false;
 			command->path_var = get_path_var();
 		}
@@ -58,7 +57,7 @@ int	init_pipes(t_command *command, char **split_line)
 	return (0);
 }
 
-int	init_command(t_command *command, char **split_line)
+int	init_arguments(t_command *command, char **split_line)
 {
 	while (*split_line)
 	{
@@ -87,12 +86,12 @@ int	init_commands(t_command *command, char **split_line)
 	command->command = NULL;
 	command->close_pipe = false;
 	command->arguments = NULL;
-	command->input = STDIN_FILENO;
 	command->close_in = false;
-	command->output = STDOUT_FILENO;
 	command->close_out = false;
 	command->path_var = get_path_var();
-	init_pipes(command, split_line);
-	init_command(command, split_line);
+	if (init_pipes(command, split_line))
+		return (1);
+	if (init_arguments(command, split_line))
+		return (1);
 	return (0);
 }

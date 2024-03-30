@@ -6,13 +6,13 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:22:50 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/30 14:03:47 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/30 15:01:41 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	take(char *line)
+static void	take(char *line)
 {
 	if (!line)
 		exit(0);
@@ -20,13 +20,24 @@ void	take(char *line)
 		add_history(line);
 }
 
+void	enter(t_command command)
+{
+	pid_t		wait_process;
+
+	wait_process = exec_commands(command);
+	if (wait_process > 0)
+	{
+		close_pipes(command);
+		waitpid(wait_process, NULL, 0);
+	}
+}
+
 int	main(void)
 {
 	char		*line;
 	char		**split_line;
 	t_command	command;
-	pid_t		wait_process;
-	
+
 	while (1)
 	{
 		line = readline("$>");
@@ -37,16 +48,9 @@ int	main(void)
 			if (split_line)
 			{
 				if (!init_commands(&command, split_line))
-				{
-					wait_process = exec_commands(command);
-					if (wait_process > 0)
-					{
-						close_pipes(command);
-						waitpid(wait_process, NULL, 0);
-					}
-				}
+					enter(command);
 				ft_splitfree(split_line);
-				clear_commands(command); // piensa en el tema de cómo liberar split_line, cómo está guardado, etc.
+				clear_commands(command);
 			}
 		} // recuerda manejar pipes con comandos vacíos y esas movidas
 	}

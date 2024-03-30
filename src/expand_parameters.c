@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 20:34:21 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/29 20:35:19 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/30 14:56:36 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	insert_value(char **split_line, int j)
 	char	*var_name;
 	int		k;
 	int		i;
-	
+
 	k = j + 1;
 	i = 0;
 	while ((*split_line)[k] != ' ' && (*split_line)[k] != 0

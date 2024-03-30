@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 11:22:49 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/30 10:55:33 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/30 14:30:40 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,5 @@ void	clear_commands(t_command command)
 	ft_splitfree(command.path_var);
 	if (command.command)
 		clear_commands(*command.command);
-	// super importante ver como se almacenan los args y los comandos para poder liberarlos correctamente
-	// recordar que esta función tiene que ser recursiva para liberar la cadena de pipes
+	// Mirar la forma de liberar los mallocs hechos para cada command
 }

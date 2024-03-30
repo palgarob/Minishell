@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 22:34:17 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/28 20:22:39 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/03/30 14:56:11 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	stract_argument(char *line, char ***split_ptr)
 
 	position = 0;
 	while (!is_metachar(line[position]) && line[position] != 32
-			&& line[position])
+		&& line[position])
 	{
 		if (line[position] == '"' || line[position] == '\'')
 		{
