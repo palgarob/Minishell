@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:22:50 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/30 15:14:56 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/01 21:03:49 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,14 @@ static void	enter(t_command command)
 
 int	main(void)
 {
+	/* Hay casos en los que probablemente deberemos usar printf antes que ft_printf. Revisar todo para ver en qué casos tenemos que cambiar eso. */
 	char		*line;
 	char		**split_line;
 	t_command	command;
 
 	while (1)
 	{
-		line = readline("$>");
+		line = readline("$ ");
 		if (*line) // Aquí quizás se podría poner el control de la señal
 		{
 			take(line);
