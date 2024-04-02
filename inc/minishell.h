@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:23:30 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/30 15:18:16 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/02 18:09:44 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_command
 	bool				close_out;
 	int					pipe_end[2];
 	bool				close_pipe;
+	bool				rm_here_doc;
 	char				**arguments;
 	char				**path_var;
 	struct s_command	*command;
@@ -38,14 +39,16 @@ typedef struct s_command
 
 char	**parse_line(char *line);
 int		init_commands(t_command *command, char **args);
+int		redirect_io(t_command *command, char **split_line);
+int		expand_parameters(char **split_line, bool ignore_quotes);
 pid_t	exec_commands(t_command command);
 
 // Functions in utils.c
 bool	is_metachar(char c);
 char	*ft_getenv(char *var_name);
-int		trim_quotes(char **args);
 char	**get_path_var(void);
 char	*get_cmd_path(char **path_var_dir, char *cmd_name);
+int		trim_quotes(char **split_line);
 
 void	clear_commands(t_command command);
 void	close_pipes(t_command command);

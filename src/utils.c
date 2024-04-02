@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 14:31:42 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/30 14:56:46 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/02 18:39:29 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,29 @@ char	*ft_getenv(char *var_name)
 	return (value);
 }
 
-int	trim_quotes(char **args)
+int	trim_quotes(char **split_line)
 {
 	int		j;
 	int		quote;
+	int		n;
 
 	j = -1;
-	while ((*args)[++j])
+	n = 0;
+	while ((*split_line)[++j])
 	{
-		if ((*args)[j] == '"' || (*args)[j] == '\'')
+		if ((*split_line)[j] == '"' || (*split_line)[j] == '\'')
 		{
-			quote = (*args)[j];
-			ft_strins(args, j, j + 1, "");
-			while ((*args)[j] != quote)
+			n++;
+			quote = (*split_line)[j];
+			if (ft_strins(split_line, j, j + 1, ""))
+				return (-1);
+			while ((*split_line)[j] != quote)
 				j++;
-			ft_strins(args, j, j + 1, "");
+			if (ft_strins(split_line, j, j + 1, ""))
+				return (-1);
 		}
 	}
-	return (0);
+	return (n);
 }
 
 char	**get_path_var(void)

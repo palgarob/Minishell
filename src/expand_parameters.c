@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 20:34:21 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/30 14:56:36 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/02 17:54:27 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ static int	insert_value(char **split_line, int j)
 	return (0);
 }
 
-int	access_values(char **split_line)
+int	expand_parameters(char **split_line, bool ignore_quotes)
 {
 	int		j;
 
 	j = -1;
 	while ((*split_line)[++j])
 	{
-		if ((*split_line)[j] == '\'')
+		if ((*split_line)[j] == '\'' && !ignore_quotes)
 		{
 			j++;
 			while ((*split_line)[j++] != '\'')
@@ -60,5 +60,7 @@ int	access_values(char **split_line)
 				return (1);
 		}
 	}
+	if (!ignore_quotes)
+		trim_quotes(split_line);
 	return (0);
 }
