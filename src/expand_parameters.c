@@ -6,13 +6,13 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 20:34:21 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/02 17:54:27 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/03 20:46:10 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	insert_value(char **split_line, int j)
+static int	insert_value(char **split_line, int j, char **mini_env)
 {
 	char	*value;
 	char	*var_name;
@@ -30,7 +30,7 @@ static int	insert_value(char **split_line, int j)
 	var_name = ft_substr(*split_line, j + 1, i);
 	if (!var_name)
 		return (perror(0), 1);
-	value = ft_getenv(var_name);
+	value = ft_getenv(var_name, mini_env);
 	free(var_name);
 	if (!value)
 		return (1);
@@ -40,7 +40,7 @@ static int	insert_value(char **split_line, int j)
 	return (0);
 }
 
-int	expand_parameters(char **split_line, bool ignore_quotes)
+int	expand_parameters(char **split_line, bool ignore_quotes, char **mini_env)
 {
 	int		j;
 
@@ -56,7 +56,7 @@ int	expand_parameters(char **split_line, bool ignore_quotes)
 		if ((*split_line)[j] == '$' && (*split_line)[j + 1] != ' '
 				&& (*split_line)[j + 1] != '?' && (*split_line)[j + 1] != 0)
 		{
-			if (insert_value(split_line, j))
+			if (insert_value(split_line, j, mini_env))
 				return (1);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 14:31:42 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/02 18:39:29 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/03 21:59:27 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,29 @@ bool	is_metachar(char c)
 	return (false);
 }
 
-char	*ft_getenv(char *var_name)
+char	*ft_getenv(char *var_name, char **mini_env)
 {
+	//free memory
 	char	*value;
 
-	value = getenv(var_name);
+	value = NULL;
+	while (*mini_env)
+	{
+		if (ft_strncmp(*mini_env, var_name, ft_strlen(var_name) + 1) == 61)
+		{
+	ft_printf("HOLA\n");
+			value = *mini_env + ft_strlen(var_name);
+			break;
+		}
+		mini_env++;
+	}
 	if (!value)
 	{
 		value = (char *)malloc(sizeof(char) * 1);
 		if (!value)
 			return (perror(0), NULL);
 		*value = 0;
+		return (value);
 	}
 	value = ft_strdup(value);
 	if (!value)
@@ -64,11 +76,15 @@ int	trim_quotes(char **split_line)
 	return (n);
 }
 
-char	**get_path_var(void)
+char	**get_path_var(char **mini_env)
 {
 	char	**path_var;
+	char	*path;
 
-	path_var = ft_split(getenv("PATH"), ':');
+	path = ft_getenv("PATH", mini_env);
+	if (!path)
+		return (NULL);
+	path_var = ft_split(path, ':');
 	if (!path_var)
 		return (NULL);
 	return (path_var);
