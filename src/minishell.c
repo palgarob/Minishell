@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:22:50 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/03 21:52:01 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/04 13:08:05 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ static void	enter(t_shell shell)
 }
 
 void	init_shell(t_shell *shell, char **environment)
-{
+{	
 	shell->mini_env = ft_splitdup(environment);
+	//borrar cosas
 	if (!shell->mini_env)
 	{
 		perror(NULL);
 		exit(1);
 	}
-	shell->shell_variables = NULL;
 	shell->return_val = 0;
 	shell->rm_here_doc = false;
 }
@@ -62,7 +62,7 @@ int	main(__attribute__((unused)) int argc, __attribute__((unused)) char **argv, 
 			split_line = parse_line(line); // mirar que hacer si le pasamos espacios o tabs vacíos
 			if (split_line)
 			{
-				if (!init_commands(&shell.first_command, split_line))
+				if (!init_commands(&shell, split_line))
 					enter(shell);
 				ft_splitfree(split_line);
 				clear_commands(shell.first_command);

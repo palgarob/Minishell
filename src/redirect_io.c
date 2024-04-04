@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 16:15:43 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/03 20:48:05 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/04 13:29:53 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	here_doc(t_command *command, char **split_line)
 	quoted = trim_quotes(split_line + 1);
 	if (quoted < 0)
 		return (1);
-	command->input = open("here_doc", O_RDWR | O_TRUNC | O_CREAT , 0644);
+	command->input = open("here_doc", O_WRONLY | O_TRUNC | O_CREAT , 0644);
 	if (command->input < 0)
 		return (perror("here_doc"), 1);
 	command->close_in = true;
@@ -42,6 +42,8 @@ static int	here_doc(t_command *command, char **split_line)
 	}
 	if (content)
 		write(command->input, content, ft_strlen(content));
+	close(command->input);
+	command->input = open("here_doc", O_RDONLY);
 	return (0);
 }
 

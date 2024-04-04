@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 14:31:42 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/03 21:59:27 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/04 13:08:18 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ char	*ft_getenv(char *var_name, char **mini_env)
 	{
 		if (ft_strncmp(*mini_env, var_name, ft_strlen(var_name) + 1) == 61)
 		{
-	ft_printf("HOLA\n");
 			value = *mini_env + ft_strlen(var_name);
 			break;
 		}

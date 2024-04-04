@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 11:22:49 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/03 18:41:59 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/04 12:47:46 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	clear_commands(t_command command)
 		close(command.input);
 	if (command.close_out)
 		close(command.output);
-	ft_splitfree(command.path_var);
 	if (command.piped_command)
 	{
 		clear_commands(*command.piped_command);
