@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 19:52:16 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/04 13:37:22 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/04 19:08:35 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ pid_t	exec_commands(t_command command)
 {
 	pid_t	pid;
 	char	*cmd_path;
-	char	**path_var;
+	char	**path;
 
-	path_var = get_path_var(command.shell->mini_env);
-	if (!path_var)
+	path = get_path(command.shell->mini_env);
+	if (!path)
 		return (-1);
-	cmd_path = get_cmd_path(path_var, *command.arguments);
-	free(path_var);
+	cmd_path = get_cmd_path(path, *command.arguments);
+	free(path);
 	pid = fork();
 	if (pid < 0)
 		return (perror(0), -1);
@@ -51,8 +51,7 @@ pid_t	exec_commands(t_command command)
 		if (command.close_out)
 			if (dup2(command.output, STDOUT_FILENO) < 0)
 				return (perror(0), -1);
-		command.shell->return_val = execve(cmd_path, command.arguments, command.shell->mini_env);
-		ft_printf("%d\n");
+		execve(cmd_path, command.arguments, command.shell->mini_env);
 	}
 	free(cmd_path);
 	if (command.piped_command)

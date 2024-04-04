@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 14:31:42 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/04 13:08:18 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/04 19:17:26 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	trim_quotes(char **split_line)
 	return (n);
 }
 
-char	**get_path_var(char **mini_env)
+char	**get_path(char **mini_env)
 {
 	char	**path_var;
 	char	*path;
