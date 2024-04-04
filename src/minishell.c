@@ -3,14 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:22:50 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/30 15:14:56 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/04 16:19:46 by incalero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_free_array(char **s)
+{
+	int i;
+
+	i = 0;
+	while(s[i])
+	{
+		free(s[i]);
+		i++;
+	}
+	free(s);
+}
 
 static void	take(char *line)
 {
@@ -32,15 +45,43 @@ static void	enter(t_command command)
 	}
 }
 
-int	main(void)
+char	**ft_get_env(char **env)
+{
+	int		i;
+	char	**envcp;
+
+	i = 0;
+	while (env[i])
+		i++;
+	envcp = malloc(sizeof(char *) * (i + 1));
+	ft_printf("POINTER envp %p\n", envcp);
+	envcp[i] = NULL;
+	i = 0;
+	while (env[i])
+	{
+		envcp[i] = ft_strdup(env[i]);
+		i++;
+	}
+	i = 0;
+	return (envcp);
+}
+
+int	main(int argc, char *argv[], char **env)
 {
 	char		*line;
 	char		**split_line;
 	t_command	command;
 
+	if (argc > 1)
+		return (perror("Error de argumentos"), -1);
+	argv = NULL;
+	if (!env)
+		return (perror("Err: env not exit"), -1);
+	command.env_mini = ft_get_env(env);
+	command.env_mini = ft_dell_var(command, "OLDPWD");
 	while (1)
 	{
-		line = readline("$>");
+		line = readline("minishell$>");
 		if (*line) // Aquí quizás se podría poner el control de la señal
 		{
 			take(line);

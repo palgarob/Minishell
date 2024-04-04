@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_commands.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 19:52:16 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/30 15:16:42 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/04 12:37:51 by incalero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,13 @@ pid_t	exec_commands(t_command command)
 		if (command.close_out)
 			if (dup2(command.output, STDOUT_FILENO) < 0)
 				return (perror(0), -1);
-		execve(cmd_path, command.arguments, environ);
+		if (ft_case(command))
+			return (0);
+		else
+		{
+			printf("EXECVE\n");
+			execve(cmd_path, command.arguments, command.env_mini);
+		}
 	}
 	free(cmd_path);
 	if (command.command)
