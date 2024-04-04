@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 20:34:21 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/04 13:39:57 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/04 16:19:06 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,20 @@ static int	insert_value(char **split_line, int j, char **mini_env)
 	return (0);
 }
 
-int	expand_parameters(char **split_line, bool ignore_quotes, char **mini_env)
+int	insert_les(char **split_line, int j, int les)
+{
+	int		k;
+	char	*value;
+
+	value = ft_itoa(les);
+	k = j + 2;
+	if (ft_strins(split_line, j, k, value))
+		return (free(value), 1);
+	free(value);
+	return (0);
+}
+
+int	expand_parameters(char **split_line, bool ignore_quotes, char **mini_env, int les)
 {
 	int		j;
 
@@ -53,12 +66,13 @@ int	expand_parameters(char **split_line, bool ignore_quotes, char **mini_env)
 			while ((*split_line)[j++] != '\'')
 				;
 		}
-		if ((*split_line)[j] == '$' && (*split_line)[j + 1] != '?')
+		if ((*split_line)[j] == '$' && (*split_line)[j + 1] == '?')
 		{
-			
+			if (insert_les(split_line, j, les))
+				return (1);
 		}
-		if ((*split_line)[j] == '$' && (*split_line)[j + 1] != ' '
-				&& (*split_line)[j + 1] != '?' && (*split_line)[j + 1] != 0)
+		else if ((*split_line)[j] == '$' && (*split_line)[j + 1] != ' '
+				&& (*split_line)[j + 1] != 0)
 		{
 			if (insert_value(split_line, j, mini_env))
 				return (1);
