@@ -6,7 +6,7 @@
 /*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 10:02:00 by incalero          #+#    #+#             */
-/*   Updated: 2024/04/04 12:35:20 by incalero         ###   ########.fr       */
+/*   Updated: 2024/04/05 17:08:24 by incalero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,30 +49,29 @@ int ft_change_directory(const char *directory)
 	return (0);
 }
 
-int ft_cd (t_command command)
+int ft_cd (t_command *command)
 {
-	if (!command.arguments[1])
+	if (!command->arguments[1])
 		ft_change_directory(NULL);
-	ft_change_directory(command.arguments[1]);
+	ft_change_directory(command->arguments[1]);
 	return (0);
 }
 
-int ft_case(t_command command)
+void ft_case(t_command *command)
 {
-	if (ft_strncmp(command.arguments[0], "echo\0", 5) == 0)
-		return(ft_echo (command), 1);
-	else if (ft_strncmp(command.arguments[0], "cd", 2) == 0)
-		return(ft_cd (command), 1);
-	else if (ft_strncmp(command.arguments[0], "pwd", 3) == 0)
-		return (ft_pwd (), 1);
-	else if (ft_strncmp(command.arguments[0], "export", 6) == 0)
-		return (ft_export (command), 1);
-	else if (ft_strncmp(command.arguments[0], "unset", 5) == 0)
-		return (ft_unset (command), 1);
-	else if (ft_strncmp(command.arguments[0], "env", 3) == 0)
-		return (ft_env (command), 1);
-	else if (ft_strncmp(command.arguments[0], "exit", 4) == 0)
-		return (ft_exit (command), 1);
-	return (0);
+	if (ft_strncmp(command->arguments[0], "echo\0", 5) == 0)
+		ft_echo (command);
+	else if (ft_strncmp(command->arguments[0], "cd", 2) == 0)
+		ft_cd (command);
+	else if (ft_strncmp(command->arguments[0], "pwd", 3) == 0)
+		ft_pwd ();
+	else if (ft_strncmp(command->arguments[0], "export", 6) == 0)
+		ft_export (command);
+	else if (ft_strncmp(command->arguments[0], "unset", 5) == 0)
+		ft_unset (command);
+	else if (ft_strncmp(command->arguments[0], "env", 3) == 0)
+		ft_env (command);
+	else if (ft_strncmp(command->arguments[0], "exit", 4) == 0)
+		ft_exit (command);
 }
 

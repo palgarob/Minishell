@@ -6,7 +6,7 @@
 /*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:22:50 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/04 16:19:46 by incalero         ###   ########.fr       */
+/*   Updated: 2024/04/05 16:40:31 by incalero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ char	**ft_get_env(char **env)
 	while (env[i])
 		i++;
 	envcp = malloc(sizeof(char *) * (i + 1));
-	ft_printf("POINTER envp %p\n", envcp);
 	envcp[i] = NULL;
 	i = 0;
 	while (env[i])
@@ -89,7 +88,12 @@ int	main(int argc, char *argv[], char **env)
 			if (split_line)
 			{
 				if (!init_commands(&command, split_line))
-					enter(command);
+				{
+					if (ft_is_command(&command) == 1)
+						ft_case (&command);
+					else
+						enter(command);
+				}
 				ft_splitfree(split_line);
 				clear_commands(command);
 			}
