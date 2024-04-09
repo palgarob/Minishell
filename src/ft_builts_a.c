@@ -6,31 +6,15 @@
 /*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 10:00:02 by incalero          #+#    #+#             */
-/*   Updated: 2024/04/05 17:06:58 by incalero         ###   ########.fr       */
+/*   Updated: 2024/04/09 12:56:39 by incalero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+size_t ft_str_equal_len(char *s)
 {
-	if (n)
-	{
-		while (*s1 && *s2 && --n)
-		{
-			if (*s1 != *s2)
-				return ((unsigned char)*s1 - (unsigned char)*s2);
-			s1++;
-			s2++;
-		}
-		return (*(unsigned char *)s1 - *(unsigned char *)s2);
-	}
-	return (0);
-}
-
-int ft_strequallen(char *s)
-{
-	int i;
+	size_t i;
 
 	i = 0;
 	while (s[i])
@@ -40,6 +24,16 @@ int ft_strequallen(char *s)
 		i++;
 	}
 	return (i);
+}
+
+int ft_is_equal (char *s)
+{
+	if ((ft_str_equal_len(s) == ft_strlen (s)) && ft_strlen(s) > 1)
+		return (0);
+	if (ft_strlen(s) == 1 && s[0] != '=')
+		return (0);
+	else 
+		return (1);
 }
 
 char **ft_env_mini_order(t_command *command)
@@ -52,7 +46,7 @@ char **ft_env_mini_order(t_command *command)
 	env = ft_get_env(command->env_mini);
 	while (env[i] && env[i + 1] != NULL)
 	{
-		if(ft_strncmp(env[i], env[i + 1], ft_strequallen(env[i])) > 0)
+		if(ft_strncmp(env[i], env[i + 1], ft_str_equal_len(env[i])) > 0)
 		{
 			temp = env[i];
 			env[i] = env[i + 1];
@@ -80,18 +74,63 @@ void ft_export_env(t_command *command)
 			printf("%c", env_export[i][j++]);
 		if(env_export[i][j] && env_export[i][j] == '=')
 			printf("%c",env_export[i][j++]);
-		printf("\"");
+		if (ft_is_equal(env_export[i]))
+			printf("\"");
 		while (env_export[i][j])
 			printf("%c", env_export[i][j++]);
-		printf("\"\n");
+		if (ft_is_equal(env_export[i]))
+			printf("\"");
+		printf("\n");
 		i++;
 	}
 	ft_free_array(env_export);
 }
 
-int ft_change_var (t_command command)
+int ft_var_is_ok(char *s)
 {
-	command.env_mini = NULL;
+	int i;
+	int j;
+
+	i = 1;
+	j = 0;
+	while (s[i] && s[j] != '=')
+		j++;
+	while (s[i] && i < j)
+	{
+		if (!((s[0] == '_') || (s[0] >= 'A' && s[0] <= 'Z') || (s[0] >= 'a' && s[0] <= 'z')))
+		{
+			printf("minishell: export: '%s': not a valid identifier\n", s);
+			return (0);
+		}
+		if (!((s[i] >= 'A' && s[i] <= 'Z') || (s[i] >= 'a' && s[i] <= 'z') || (s[i] >= '0' && s[i] <= '9') || (s[i] == '=')))
+		{
+			printf("minishell: export: '%s': not a valid identifier\n", s);
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}
+
+int ft_var_exist(t_command *command)
+{
+	char *var;
+	int i;
+	int len;
+	
+	i = 0;
+	var = command->arguments[1];
+	len = ft_str_equal_len(var);
+	while (command->env_mini[i])
+	{
+		if (ft_strncmp(var, command->env_mini[i], len) == 0)
+		{
+			free(command->env_mini[i]);
+			command->env_mini[i] = ft_strdup(var);
+			return (1);
+		}
+		i++;
+	}
 	return (0);
 }
 
@@ -108,6 +147,11 @@ int ft_export(t_command *command)
 	else
 	{
 		var = command->arguments[1];
+		printf("var = %s\n", var);
+		if (ft_var_is_ok(var) == 0)
+			return (0);
+		if (ft_var_exist(command) == 1)
+			return (0);
 		ft_add_var(command, var);
 	}
 	return (0);
@@ -173,7 +217,36 @@ char **ft_dell_var(t_command command, char *var)
 	return (envcpy);
 } 
 
-void ft_add_var(t_command *command, char *var)
+/* void ft_add_var(t_command *command, char *var, char *var_tipe)
+{
+	int i;
+	char ***envcpy;
+	int len;
+
+	len = 0;
+	printf ("len = %d\n", len);
+	i = 0;
+	while (command->env_var[len] != NULL)
+		len++;
+	printf ("len = %d\n", len);
+	envcpy = (char ***)malloc(sizeof(char **) * (len + 2));
+	while (command->env_var[i])
+	{
+		envcpy[i] = (char **)malloc(sizeof(char *) * 3);
+		envcpy[i][0] = ft_strdup(command->env_var[i][0]);
+		envcpy[i][1] = ft_strdup(command->env_var[i][1]);
+		envcpy[i][2] = NULL;
+		i++;
+	}
+	envcpy[i] = (char **)malloc(sizeof(char *) * 3);
+	envcpy[i][0] = ft_strdup(var_tipe);
+	envcpy[i][1] = ft_strdup(var);
+	envcpy[i + 1] = NULL;
+	ft_free_array_triple(command->env_var);
+	command->env_var = envcpy;
+} */
+
+void ft_add_var (t_command *command, char *var)
 {
 	int i;
 	char **envcpy;

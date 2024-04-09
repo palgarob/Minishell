@@ -7,10 +7,10 @@ OBJ_DIR	= obj
 INC_DIR	= inc
 
 RM		= rm -rf
-CFLAGS	= -Wall -Wextra -Werror -I$(INC_DIR)
+CFLAGS	= -Wall -Wextra -Werror -I$(INC_DIR) 
 LDFLAGS	= -Llibft-improved
 LDLIBS	= -lft -lreadline
-
+CC =  gcc
 FILES	= $(basename $(notdir $(wildcard src/*.c)))
 SRC		= $(addsuffix .c,$(addprefix $(SRC_DIR)/,$(FILES)))
 OBJ		= $(addsuffix .o,$(addprefix $(OBJ_DIR)/,$(FILES)))
@@ -21,11 +21,11 @@ OBJ		= $(addsuffix .o,$(addprefix $(OBJ_DIR)/,$(FILES)))
 all : ft $(NAME)
 
 $(NAME) : $(OBJ)
-	$(CC) $(OBJ) $(LDFLAGS) $(LDLIBS) -o $(NAME)
+	$(CC) -g3 $(OBJ) $(LDFLAGS) $(LDLIBS) -o $(NAME)
 
 $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c
 	mkdir -p $(OBJ_DIR)
-	$(CC) -c $(CFLAGS) $< -o $@
+	$(CC) -c -g $(CFLAGS) $< -o $@
 
 ft :
 	$(MAKE) -C $(FT_DIR)

@@ -6,7 +6,7 @@
 /*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:22:50 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/05 16:40:31 by incalero         ###   ########.fr       */
+/*   Updated: 2024/04/09 15:16:56 by incalero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,26 @@ void	ft_free_array(char **s)
 	i = 0;
 	while(s[i])
 	{
+		free(s[i]);
+		i++;
+	}
+	free(s);
+}
+
+void	ft_free_array_triple(char ***s)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	while(s[i])
+	{
+		while (s[i][j])
+		{
+			free(s[i][j]);
+			j++;
+		}
 		free(s[i]);
 		i++;
 	}
@@ -65,6 +85,29 @@ char	**ft_get_env(char **env)
 	return (envcp);
 }
 
+char	***ft_get_env_var(char **env)
+{
+	int		i;
+	char	***envcp;
+
+	i = 0;
+	while (env[i])
+		i++;
+	envcp = (char ***)malloc(sizeof(char **) * (i + 1));
+	envcp[i] = NULL;
+	i = 0;
+	while (env[i])
+	{
+		envcp[i] = (char **)malloc(sizeof(char *) * 3);
+		envcp[i][0] = ft_strdup("A");
+		envcp[i][1] = ft_strdup(env[i]);
+		envcp[i][2] = NULL;
+		i++;
+	}
+	//ft_free_array(env);
+	return (envcp);
+}
+
 int	main(int argc, char *argv[], char **env)
 {
 	char		*line;
@@ -78,6 +121,7 @@ int	main(int argc, char *argv[], char **env)
 		return (perror("Err: env not exit"), -1);
 	command.env_mini = ft_get_env(env);
 	command.env_mini = ft_dell_var(command, "OLDPWD");
+	//command.env_var = ft_get_env_var(command.env_mini);
 	while (1)
 	{
 		line = readline("minishell$>");
@@ -92,12 +136,14 @@ int	main(int argc, char *argv[], char **env)
 					if (ft_is_command(&command) == 1)
 						ft_case (&command);
 					else
+					{
+						//ft_command_no_found(&command);
 						enter(command);
+					}
 				}
 				ft_splitfree(split_line);
 				clear_commands(command);
 			}
 		} // recuerda manejar pipes con comandos vacíos y esas movidas
-	}
-	return (0);
+	} 
 }

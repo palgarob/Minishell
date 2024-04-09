@@ -6,7 +6,7 @@
 /*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 10:02:00 by incalero          #+#    #+#             */
-/*   Updated: 2024/04/05 17:08:24 by incalero         ###   ########.fr       */
+/*   Updated: 2024/04/08 10:36:47 by incalero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int ft_directory_cmp(void)
 int ft_change_directory(const char *directory)
 {
 	ft_directory_cmp();
-	printf("directory = %s\n", directory);
 	if (directory == NULL || directory[0] == '~') // Si no se proporciona ningún argumento o es la variable de entorno $USER, cambia al directorio de inicio del usuario
 	{
         if (chdir(getenv("HOME")) != 0) 

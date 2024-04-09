@@ -6,7 +6,7 @@
 /*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 09:57:12 by incalero          #+#    #+#             */
-/*   Updated: 2024/04/05 11:44:01 by incalero         ###   ########.fr       */
+/*   Updated: 2024/04/09 13:00:52 by incalero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,16 @@ int ft_echo(t_command *command)
 int ft_env(t_command *command)
 {
 	int i;
-
 	i = 0;
-	ft_printf("Pointer de command %p POINTER1 ft_env1 %p \n", command, command->env_mini);
 	
 	while(command->env_mini[i])
 	{
-		printf("%s\n", command->env_mini[i]);
+		if (ft_is_equal(command->env_mini[i]) == 0)
+			i++;
+		else
+			printf("%s\n", command->env_mini[i]);
 		i++;
-	}	
-	ft_printf("Pointer de command %p POINTER2 ft_env2 %p \n", command, command->env_mini);
+	}
 	return (0);
 }
 

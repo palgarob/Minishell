@@ -6,13 +6,47 @@
 /*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 19:52:16 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/05 13:25:10 by incalero         ###   ########.fr       */
+/*   Updated: 2024/04/09 10:50:51 by incalero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 extern char	**environ;
+
+/* void ft_only_local_var(t_command *command)
+{
+	int i;
+
+	printf("%s\n",command->env_var[0][0]);
+	i = 0;
+	while (command->env_var[i])
+	{
+		printf("tipo de variable = %s y var = %s\n", command->env_var[i][0],  command->env_var[i][1]);
+		i++;
+	} 
+	i = 0;
+	while (command->arguments[i])
+	{
+		ft_add_var(command, command->arguments[i], "L");
+		i++;
+	}
+} */
+
+int ft_is_local_var(t_command *command)
+{
+	int i;
+
+	i = 0;
+	while (command->arguments[i])
+	{
+		if(ft_is_equal(command->arguments[i]) == 1)
+			i++;
+		else
+			return (0);
+	}
+	return (1);
+}
 
 int ft_is_command (t_command *command)
 {
@@ -46,6 +80,25 @@ static int	pipes(t_command command)
 	return (0);
 }
 
+int ft_command_no_found(t_command *command)
+{
+	int i;
+	
+	i = 0;
+	while (command->arguments[i]) 
+	{
+		if(ft_is_equal(command->arguments[i]) == 0)
+		{
+			printf("minishell: ");
+			printf("%s: ", command->arguments[i]);
+			printf("command no found\n");
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}
+
 pid_t	exec_commands(t_command command)
 {
 	pid_t	pid;
@@ -74,6 +127,6 @@ pid_t	exec_commands(t_command command)
 	free(cmd_path);
 	if (command.command)
 		return (exec_commands(*command.command));
-	printf ("FFFFFFFFFFFFFF\n");
+	//printf ("\n");
 	return (pid);
 }
