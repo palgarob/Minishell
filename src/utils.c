@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 14:31:42 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/06 19:13:04 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/09 18:31:18 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ static int	get_path(char **mini_env, char ***path_ptr)
 
 char	*get_cmd_path(char *cmd_name, char **mini_env)
 {
-	//memory leaks y hacer un ft_printf_error
+	//memory leaks
 	char	*cmd_path;
 	char	**path;
 	int		i;
@@ -133,5 +133,5 @@ char	*get_cmd_path(char *cmd_name, char **mini_env)
 	ft_splitfree(path);
 	if (cmd_path)
 		return (cmd_path);
-	return (perror("No such command"), NULL);
+	return (write(STDERR_FILENO, cmd_name, ft_strlen(cmd_name)), write(STDERR_FILENO, ": command not found\n", 20), NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:22:50 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/09 17:24:37 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/09 18:34:20 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ static void	enter(t_shell *shell, char **split_line)
 		{
 			close_pipes(shell->first_command);
 			waitpid(wait_process, &shell->les, 0);
-			if (shell->les)
-				perror(strerror(shell->les)); // esto sobra?
 		}
 	}
 	ft_splitfree(split_line);
@@ -65,9 +63,6 @@ static void	prompt(t_shell *shell)
 
 int	main(__attribute__((unused)) int argc, __attribute__((unused)) char **argv, char **envp)
 {
-	// intentar usar printf en vez de ft_printf + error al imprimir ints?
-	// manejar los tabs y otros whitespaces
-	// hacer makefile más bonito? 
 	t_shell		shell;
 
 	init_shell(&shell, envp);
