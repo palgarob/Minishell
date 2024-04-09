@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 20:34:21 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/09 17:12:44 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/09 17:32:48 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,7 @@ int	expand_parameters(char **split_line, bool ignore_quotes, char **mini_env, in
 		}
 		else if ((*split_line)[j] == '"' && !ignore_quotes)
 		{
-			j++;
-			while ((*split_line)[j++] != '"')
+			while ((*split_line)[++j] != '"')
 			{
 				if ((*split_line)[j] == '$' && (*split_line)[j + 1] == '?')
 				{
@@ -83,6 +82,7 @@ int	expand_parameters(char **split_line, bool ignore_quotes, char **mini_env, in
 						return (1);
 				}
 			}
+			j++;
 		}
 		else
 		{

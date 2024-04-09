@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 22:34:17 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/03/30 14:56:11 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/09 17:28:07 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static char	**split_line(char *line)
 	split = NULL;
 	while (*line)
 	{
-		if (*line == ' ')
+		if (*line == ' ' || *line == '\t')
 			line++;
 		else
 		{
