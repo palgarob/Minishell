@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:23:30 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/04 18:33:37 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/05 13:48:30 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,7 @@ pid_t	exec_commands(t_command command);
 // Functions in utils.c
 bool	is_metachar(char c);
 char	*ft_getenv(char *var_name, char **mini_env);
-char	**get_path(char **mini_env);
-char	*get_cmd_path(char **path, char *cmd_name);
+char	*get_cmd_path(char *cmd_name, char **mini_env);
 int		trim_quotes(char **split_line);
 
 void	clear_commands(t_command command);

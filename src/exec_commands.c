@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 19:52:16 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/04 19:08:35 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/05 14:05:48 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,10 @@ pid_t	exec_commands(t_command command)
 {
 	pid_t	pid;
 	char	*cmd_path;
-	char	**path;
 
-	path = get_path(command.shell->mini_env);
-	if (!path)
+	cmd_path = get_cmd_path(*command.arguments, command.shell->mini_env);
+	if (!cmd_path)
 		return (-1);
-	cmd_path = get_cmd_path(path, *command.arguments);
-	free(path);
 	pid = fork();
 	if (pid < 0)
 		return (perror(0), -1);

@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 14:31:42 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/04 19:17:26 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/06 19:13:04 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ char	*ft_getenv(char *var_name, char **mini_env)
 	{
 		if (ft_strncmp(*mini_env, var_name, ft_strlen(var_name) + 1) == 61)
 		{
-			value = *mini_env + ft_strlen(var_name);
+			value = *mini_env + ft_strlen(var_name) + 1;
 			break;
 		}
 		mini_env++;
 	}
 	if (!value)
 	{
-		value = (char *)malloc(sizeof(char) * 1);
+		value = (char *)malloc(sizeof(char));
 		if (!value)
 			return (perror(0), NULL);
 		*value = 0;
@@ -75,45 +75,63 @@ int	trim_quotes(char **split_line)
 	return (n);
 }
 
-char	**get_path(char **mini_env)
+/* This function returns:
+	-> 0 if there is a path
+	-> 1 if there is no path
+	-> -1 if there was an error */
+static int	get_path(char **mini_env, char ***path_ptr)
 {
-	char	**path_var;
 	char	*path;
 
 	path = ft_getenv("PATH", mini_env);
 	if (!path)
-		return (NULL);
-	path_var = ft_split(path, ':');
-	if (!path_var)
-		return (NULL);
-	return (path_var);
+		return (-1);
+	if (!*path)
+	{
+		free(path);
+		path = ft_getenv("PWD", mini_env);
+		if (!path)
+			return (-1);
+		if (!*path)
+			return (free(path), perror("environment variable PWD missing"), -1);
+		*path_ptr = ft_split(path, ':');
+		free(path);
+		if (!*path_ptr)
+			return (-1);
+		return (1);
+	}
+	*path_ptr = ft_split(path, ':');
+	free(path);
+	if (!*path_ptr)
+		return (-1);
+	return (0);
 }
 
-char	*get_cmd_path(char **path_var_dir, char *cmd_name)
+char	*get_cmd_path(char *cmd_name, char **mini_env)
 {
+	//memory leaks y hacer un ft_printf_error
 	char	*cmd_path;
+	char	**path;
+	int		i;
+	int		no_path;
 
-	while (*path_var_dir)
+	no_path = get_path(mini_env, &path);
+	if (no_path < 0)
+		return (NULL);
+	i = -1;
+	while (path[++i])
 	{
-		cmd_path = (char *)malloc(
-				sizeof(char) * (
-					ft_strlen(*path_var_dir) + ft_strlen(cmd_name) + 2
-					)
-				);
-		if (!cmd_path)
-			return (perror(0), NULL);
-		*cmd_path = 0;
-		ft_strlcat(
-			cmd_path, *path_var_dir, ft_strlen(*path_var_dir) + 1
-			);
-		ft_strlcat(cmd_path, "/", ft_strlen(cmd_path) + 2);
-		ft_strlcat(
-			cmd_path, cmd_name, ft_strlen(cmd_path) + ft_strlen(cmd_name) + 1
-			);
+		cmd_path = ft_strjoin(path[i], "/");
+		cmd_path = ft_strjoin_gnl(cmd_path, cmd_name);
 		if (!access(cmd_path, F_OK))
-			return (cmd_path);
+			break ;
+		if (no_path)
+			return (perror(cmd_name), free(cmd_path), ft_splitfree(path), NULL);
 		free(cmd_path);
-		path_var_dir++;
+		cmd_path = NULL;
 	}
-	return (NULL);
+	ft_splitfree(path);
+	if (cmd_path)
+		return (cmd_path);
+	return (perror("No such command"), NULL);
 }
