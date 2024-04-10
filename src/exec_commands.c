@@ -3,14 +3,67 @@
 /*                                                        :::      ::::::::   */
 /*   exec_commands.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 19:52:16 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/09 15:36:20 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/10 10:12:37 by incalero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int ft_command_no_found(t_command *command)
+{
+	int i;
+	
+	i = 0;
+	while (command->arguments[i]) 
+	{
+		if(ft_is_equal(command->arguments[i]) == 0)
+		{
+			printf("minishell: ");
+			printf("%s: ", command->arguments[i]);
+			printf("command no found\n");
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+
+int ft_is_local_var(t_command *command)
+{
+	int i;
+
+	i = 0;
+	while (command->arguments[i])
+	{
+		if(ft_is_equal(command->arguments[i]) == 1)
+			i++;
+		else
+			return (0);
+	}
+	return (1);
+}
+
+int ft_is_command (t_shell *shell)
+{
+	if (ft_strncmp(shell->first_comand.arguments[0], "echo\0", 5) == 0)
+		return (1);
+	else if (ft_strncmp(shell->first_comand.arguments[0], "cd", 2) == 0)
+		return (1);
+	else if (ft_strncmp(shell->first_comand.arguments[0], "pwd", 3) == 0) 
+		return (1);
+	else if (ft_strncmp(shell->first_comand.arguments[0], "export", 6) == 0)
+		return (1);
+	else if (ft_strncmp(shell->first_comand.arguments[0], "unset", 5) == 0)
+		return (1);
+	else if (ft_strncmp(shell->first_comand.arguments[0], "env", 3) == 0)
+		return (1);
+	else if (ft_strncmp(shell->first_comand.arguments[0], "exit", 4) == 0)
+		return (1);
+	else
+		return (0);
+}
 
 static int	pipes(t_command command)
 {

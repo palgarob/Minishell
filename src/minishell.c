@@ -3,14 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:22:50 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/09 18:34:20 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/10 10:00:07 by incalero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_free_array(char **s)
+{
+	int i;
+
+	i = 0;
+	while(s[i])
+	{
+		free(s[i]);
+		i++;
+	}
+	free(s);
+}
+
+char	**ft_get_env(char **env)
+{
+	int		i;
+	char	**envcp;
+
+	i = 0;
+	while (env[i])
+		i++;
+	envcp = malloc(sizeof(char *) * (i + 1));
+	envcp[i] = NULL;
+	i = 0;
+	while (env[i])
+	{
+		envcp[i] = ft_strdup(env[i]);
+		i++;
+	}
+	i = 0;
+	return (envcp);
+}
 
 static void	enter(t_shell *shell, char **split_line)
 {
@@ -57,7 +90,12 @@ static void	prompt(t_shell *shell)
 		add_history(line);
 		split_line = parse_line(line);
 		if (split_line)
-			enter(shell, split_line);
+		{
+			if (ft_is_command(&shell) == 1)
+						ft_case (&shell);
+			else
+				enter(shell, split_line);
+		}
 	}
 }
 
