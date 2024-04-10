@@ -6,7 +6,7 @@
 /*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 10:02:00 by incalero          #+#    #+#             */
-/*   Updated: 2024/04/08 10:36:47 by incalero         ###   ########.fr       */
+/*   Updated: 2024/04/10 08:42:47 by incalero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,12 @@ int ft_change_directory(const char *directory)
             return (-1);
 		}
 	}
-	
 	else if (chdir(directory) != 0)
 	{
 		write (1, "cd: ", 4);
         return (perror((char *)directory), -1);
 	}
-	ft_directory_cmp();
+	//ft_directory_cmp();
 	return (0);
 }
 

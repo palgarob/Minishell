@@ -6,7 +6,7 @@
 /*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 09:57:12 by incalero          #+#    #+#             */
-/*   Updated: 2024/04/09 13:00:52 by incalero         ###   ########.fr       */
+/*   Updated: 2024/04/10 08:35:49 by incalero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,9 @@ int ft_exit(t_command *command)
 	command->arguments[0] = NULL;
 
 	
-	printf("ha entrado en exit\n");
-	system("leaks minishell");
+	printf("exit\n");
+	//system("leaks minishell");
+	ft_free_array(command->env_mini);
 	exit(42);
 	return (0);
 }

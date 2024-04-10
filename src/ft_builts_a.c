@@ -6,7 +6,7 @@
 /*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 10:00:02 by incalero          #+#    #+#             */
-/*   Updated: 2024/04/09 12:56:39 by incalero         ###   ########.fr       */
+/*   Updated: 2024/04/10 08:29:54 by incalero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int ft_var_is_ok(char *s)
 
 	i = 1;
 	j = 0;
-	while (s[i] && s[j] != '=')
+	while (s[j] != '\0' && s[j] != '=')
 		j++;
 	while (s[i] && i < j)
 	{
@@ -112,14 +112,12 @@ int ft_var_is_ok(char *s)
 	return (1);
 }
 
-int ft_var_exist(t_command *command)
+int ft_var_exist(t_command *command , char *var)
 {
-	char *var;
 	int i;
 	int len;
 	
 	i = 0;
-	var = command->arguments[1];
 	len = ft_str_equal_len(var);
 	while (command->env_mini[i])
 	{
@@ -138,32 +136,46 @@ int ft_export(t_command *command)
 {
 	char *var;
 	int nbr;
+	int i;
 
 	nbr = 0;
+	i = 1;
 	while (command->arguments[nbr])
 		nbr++;
 	if (nbr == 1)
 		ft_export_env(command);
 	else
 	{
-		var = command->arguments[1];
-		printf("var = %s\n", var);
-		if (ft_var_is_ok(var) == 0)
-			return (0);
-		if (ft_var_exist(command) == 1)
-			return (0);
-		ft_add_var(command, var);
+		while (command->arguments[i] && i < nbr)
+		{
+			var = command->arguments[i];
+			if (ft_var_is_ok(var) == 0)
+				return (0);
+			if (ft_var_exist(command, command->arguments[i]) == 1)
+				return (0);
+			ft_add_var(command, var);
+			i++;
+		}
 	}
 	return (0);
 }
 
-int ft_unset(t_command *command)
+void ft_unset(t_command *command)
 {
-	command->arguments[0] = NULL;
-
+	char *var;
+	int nbr;
+	int i;
 	
-	printf("ha entrado en unset\n");
-	return (0);
+	nbr = 0;
+	i = 1;
+	while (command->arguments[nbr])
+		nbr++;
+	while (command->arguments[i] && i < nbr)
+	{
+		var = command->arguments[i];
+		command->env_mini = ft_dell_var (*command, var);
+		i++;
+	}
 }
 
 char **ft_dell(char **env_mini, char **envcpy, int var_nbr)
@@ -192,20 +204,17 @@ char **ft_dell_var(t_command command, char *var)
 	int var_nbr;
 	int len;
 	char **envcpy;
-	char *var_equal;
 
 	var_nbr = 0;
 	len = 0;
-	var_equal = ft_strjoin(var, "=");
 	while (command.env_mini[var_nbr])
 	{
-		if (ft_strncmp(var_equal, command.env_mini[var_nbr], ft_strlen(var_equal)) == 0)
+		if (ft_strncmp(var, command.env_mini[var_nbr], ft_strlen(var)) == 0)
 			break;
 		var_nbr++;
 	}
 	if (!command.env_mini[var_nbr])//si no encuentra coincidencia.
-		return(free(var_equal), command.env_mini);
-	free(var_equal);
+		return(command.env_mini);
 	while (command.env_mini[len])
 		len++;
 	envcpy = (char **)malloc(sizeof(char *) * len);
@@ -216,35 +225,6 @@ char **ft_dell_var(t_command command, char *var)
 	ft_free_array(command.env_mini);
 	return (envcpy);
 } 
-
-/* void ft_add_var(t_command *command, char *var, char *var_tipe)
-{
-	int i;
-	char ***envcpy;
-	int len;
-
-	len = 0;
-	printf ("len = %d\n", len);
-	i = 0;
-	while (command->env_var[len] != NULL)
-		len++;
-	printf ("len = %d\n", len);
-	envcpy = (char ***)malloc(sizeof(char **) * (len + 2));
-	while (command->env_var[i])
-	{
-		envcpy[i] = (char **)malloc(sizeof(char *) * 3);
-		envcpy[i][0] = ft_strdup(command->env_var[i][0]);
-		envcpy[i][1] = ft_strdup(command->env_var[i][1]);
-		envcpy[i][2] = NULL;
-		i++;
-	}
-	envcpy[i] = (char **)malloc(sizeof(char *) * 3);
-	envcpy[i][0] = ft_strdup(var_tipe);
-	envcpy[i][1] = ft_strdup(var);
-	envcpy[i + 1] = NULL;
-	ft_free_array_triple(command->env_var);
-	command->env_var = envcpy;
-} */
 
 void ft_add_var (t_command *command, char *var)
 {

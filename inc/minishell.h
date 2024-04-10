@@ -6,7 +6,7 @@
 /*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:23:30 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/09 12:35:11 by incalero         ###   ########.fr       */
+/*   Updated: 2024/04/10 08:20:06 by incalero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@ int			access_values(char **split_line);
 
 /*FT_BUILTS_A*/
 
-int			ft_var_exist(t_command *command);
+int			ft_var_exist(t_command *command, char *var);
 int 		ft_is_equal (char *s);
 size_t		ft_str_equal_len(char *s);
 char		**ft_env_mini_order(t_command *command);
 void 		ft_export_env(t_command *command);
 int			ft_export(t_command *command);
-int			ft_unset(t_command *command);
+void		ft_unset(t_command *command);
 char		**ft_dell(char **envcy, char **env_mini, int var_nbr);
 char		**ft_dell_var(t_command command, char *var);
 void		ft_add_var(t_command *command, char *var);
