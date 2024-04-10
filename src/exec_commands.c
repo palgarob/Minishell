@@ -3,50 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec_commands.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 19:52:16 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/09 10:50:51 by incalero         ###   ########.fr       */
+/*   Updated: 2024/04/10 21:20:47 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-extern char	**environ;
-
-/* void ft_only_local_var(t_command *command)
-{
-	int i;
-
-	printf("%s\n",command->env_var[0][0]);
-	i = 0;
-	while (command->env_var[i])
-	{
-		printf("tipo de variable = %s y var = %s\n", command->env_var[i][0],  command->env_var[i][1]);
-		i++;
-	} 
-	i = 0;
-	while (command->arguments[i])
-	{
-		ft_add_var(command, command->arguments[i], "L");
-		i++;
-	}
-} */
-
-int ft_is_local_var(t_command *command)
-{
-	int i;
-
-	i = 0;
-	while (command->arguments[i])
-	{
-		if(ft_is_equal(command->arguments[i]) == 1)
-			i++;
-		else
-			return (0);
-	}
-	return (1);
-}
 
 int ft_is_command (t_command *command)
 {

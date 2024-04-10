@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:22:50 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/10 07:23:20 by incalero         ###   ########.fr       */
+/*   Updated: 2024/04/10 21:32:17 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,6 @@ void	ft_free_array(char **s)
 	i = 0;
 	while(s[i])
 	{
-		free(s[i]);
-		i++;
-	}
-	free(s);
-}
-
-void	ft_free_array_triple(char ***s)
-{
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	while(s[i])
-	{
-		while (s[i][j])
-		{
-			free(s[i][j]);
-			j++;
-		}
 		free(s[i]);
 		i++;
 	}
@@ -99,7 +79,6 @@ int	main(int argc, char *argv[], char **env)
 		return (perror("Err: env not exit"), -1);
 	command.env_mini = ft_get_env(env);
 	command.env_mini = ft_dell_var(command, "OLDPWD");
-	//command.env_var = ft_get_env_var(command.env_mini);
 	while (1)
 	{
 		line = readline("minishell$>");
