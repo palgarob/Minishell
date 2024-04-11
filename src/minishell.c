@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:22:50 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/11 11:22:09 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/11 21:24:39 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	enter(t_shell *shell, char **split_line)
 }
 
 static void	init_shell(t_shell *shell, char **environment)
-{	
+{
 	shell->mini_env = ft_splitdup(environment);
 	//eliminar y modificar variables de entorno que haya que modificar (como el level o el _= ...)
 	if (!shell->mini_env)
@@ -42,13 +42,26 @@ static void	init_shell(t_shell *shell, char **environment)
 	shell->rm_here_doc = false;
 }
 
+void	handler(__attribute__((unused)) int signum)
+{
+//	printf("\033[0K");
+	printf("\n");
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+}
+
 static void	prompt(t_shell *shell)
 {
 	char		*line;
 	char		**split_line;
-	
+
+	signal(SIGINT, handler);
+	signal(SIGQUIT, SIG_IGN);
 	line = readline("$ ");
-	if (!line)
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+	if (!line) //rl_clear_history
 		exit(0);
 	if (*line)
 	{

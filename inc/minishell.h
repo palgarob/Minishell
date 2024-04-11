@@ -6,18 +6,18 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:23:30 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/11 15:37:11 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/11 20:32:11 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "../libft-improved/inc/libft.h"
 # include <readline/readline.h>
+# include <readline/history.h>
 # include <signal.h>
 # include <sys/wait.h>
-
-# include "../libft-improved/inc/libft.h"
 
 # define ERR_PARSE "Parse error"
 # define ERR_SYNTAX "Syntax error"

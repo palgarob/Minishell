@@ -7,8 +7,8 @@ OBJ_DIR	= obj
 INC_DIR	= inc
 
 RM		= rm -rf
-CFLAGS	= -Wall -Wextra -Werror -I$(INC_DIR)
-LDFLAGS	= -Llibft-improved
+CFLAGS	= -Wall -Wextra -Werror -I$(INC_DIR) -I/opt/homebrew/Cellar/readline/8.2.10/include
+LDFLAGS	= -Llibft-improved -L/opt/homebrew/Cellar/readline/8.2.10/lib
 LDLIBS	= -lft -lreadline
 
 FILES	= $(basename $(notdir $(wildcard src/*.c)))
