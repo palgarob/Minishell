@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:22:50 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/09 18:34:20 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/11 11:22:09 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,9 @@ static void	enter(t_shell *shell, char **split_line)
 	if (!init_commands(shell, split_line))
 	{
 		wait_process = exec_commands(shell->first_command);
+		close_pipes(shell->first_command);
 		if (wait_process > 0)
-		{
-			close_pipes(shell->first_command);
 			waitpid(wait_process, &shell->les, 0);
-		}
 	}
 	ft_splitfree(split_line);
 	clear_commands(shell->first_command);

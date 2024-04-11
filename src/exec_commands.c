@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 19:52:16 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/09 15:36:20 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/11 12:16:24 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ pid_t	exec_commands(t_command command)
 			if (dup2(command.output, STDOUT_FILENO) < 0)
 				return (perror(0), -1);
 		execve(cmd_path, command.arguments, command.shell->mini_env);
+		return (perror(cmd_path),/* free(cmd_path), */ -1);
 	}
 	free(cmd_path);
 	if (command.piped_command)

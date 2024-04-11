@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 14:31:42 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/09 18:31:18 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/11 12:11:43 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 bool	is_metachar(char c)
 {
-	if (
-		c == '|' || c == '<' || c == '>'
-	)
+	if (c == '|' || c == '<' || c == '>')
 		return (true);
 	return (false);
 }
@@ -75,31 +73,17 @@ int	trim_quotes(char **split_line)
 	return (n);
 }
 
-/* This function returns:
-	-> 0 if there is a path
-	-> 1 if there is no path
-	-> -1 if there was an error */
-static int	get_path(char **mini_env, char ***path_ptr)
+static int	get_path(char **mini_env, char ***path_ptr, char *cmd_name)
 {
 	char	*path;
 
+	if (ft_strchr(cmd_name, '/'))
+		return (1);
 	path = ft_getenv("PATH", mini_env);
 	if (!path)
 		return (-1);
 	if (!*path)
-	{
-		free(path);
-		path = ft_getenv("PWD", mini_env);
-		if (!path)
-			return (-1);
-		if (!*path)
-			return (free(path), perror("environment variable PWD missing"), -1);
-		*path_ptr = ft_split(path, ':');
-		free(path);
-		if (!*path_ptr)
-			return (-1);
 		return (1);
-	}
 	*path_ptr = ft_split(path, ':');
 	free(path);
 	if (!*path_ptr)
@@ -109,28 +93,27 @@ static int	get_path(char **mini_env, char ***path_ptr)
 
 char	*get_cmd_path(char *cmd_name, char **mini_env)
 {
-	//memory leaks
 	char	*cmd_path;
-	char	**path;
+	char	**split_path;
 	int		i;
 	int		no_path;
 
-	no_path = get_path(mini_env, &path);
+	no_path = get_path(mini_env, &split_path, cmd_name);
+	if (no_path > 0)
+		return (ft_strdup(cmd_name));
 	if (no_path < 0)
 		return (NULL);
 	i = -1;
-	while (path[++i])
+	while (split_path[++i])
 	{
-		cmd_path = ft_strjoin(path[i], "/");
+		cmd_path = ft_strjoin(split_path[i], "/");
 		cmd_path = ft_strjoin_gnl(cmd_path, cmd_name);
 		if (!access(cmd_path, F_OK))
 			break ;
-		if (no_path)
-			return (perror(cmd_name), free(cmd_path), ft_splitfree(path), NULL);
 		free(cmd_path);
 		cmd_path = NULL;
 	}
-	ft_splitfree(path);
+	ft_splitfree(split_path);
 	if (cmd_path)
 		return (cmd_path);
 	return (write(STDERR_FILENO, cmd_name, ft_strlen(cmd_name)), write(STDERR_FILENO, ": command not found\n", 20), NULL);
