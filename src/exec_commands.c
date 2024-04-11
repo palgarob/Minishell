@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 19:52:16 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/11 13:25:19 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/11 13:27:19 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ pid_t	exec_commands(t_command command)
 	if (!pid)
 	{
 		redirections(command);
+		builtins(command);
 		cmd_path = get_cmd_path(*command.arguments, command.shell->mini_env);
 		if (!cmd_path)
 			exit(1);

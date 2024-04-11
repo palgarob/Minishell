@@ -6,12 +6,12 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:23:30 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/09 18:57:26 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/11 15:37:11 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_T
-# define MINISHELL_T
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
 # include <readline/readline.h>
 # include <signal.h>
@@ -49,7 +49,12 @@ int		redirect_io(t_command *command, char **split_line);
 int		expand_parameters(char **split_line, bool ignore_quotes, char **mini_env, int les);
 pid_t	exec_commands(t_command command);
 
-// Functions in utils.c
+void	builtins(t_command command);
+void	ft_echo(t_command command);
+void	ft_cd(t_command command);
+void	ft_pwd(void);
+void	ft_exit(t_command command);
+
 bool	is_metachar(char c);
 char	*ft_getenv(char *var_name, char **mini_env);
 char	*get_cmd_path(char *cmd_name, char **mini_env);
