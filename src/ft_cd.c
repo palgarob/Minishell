@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 10:02:00 by incalero          #+#    #+#             */
-/*   Updated: 2024/04/11 15:37:24 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/12 14:43:05 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ int	ft_change_directory(const char *directory)
 	return (0);
 }
 
-void	ft_cd(t_command command)
+int	ft_cd(t_command command)
 {
 	if (!command.arguments[1])
 		ft_change_directory(NULL);
 	ft_change_directory(command.arguments[1]);
-	exit(0);
+	return (0);
 }

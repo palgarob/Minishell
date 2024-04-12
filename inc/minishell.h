@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:23:30 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/11 20:32:11 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/12 14:38:59 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ int		redirect_io(t_command *command, char **split_line);
 int		expand_parameters(char **split_line, bool ignore_quotes, char **mini_env, int les);
 pid_t	exec_commands(t_command command);
 
-void	builtins(t_command command);
-void	ft_echo(t_command command);
-void	ft_cd(t_command command);
-void	ft_pwd(void);
-void	ft_exit(t_command command);
+int		builtins(t_command command);
+int		ft_echo(t_command command);
+int		ft_cd(t_command command);
+int		ft_pwd(void);
+int		ft_exit(t_command command);
 
 bool	is_metachar(char c);
 char	*ft_getenv(char *var_name, char **mini_env);
