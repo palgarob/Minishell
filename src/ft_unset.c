@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	ft_unset(t_command command)
+int	ft_unset(t_command command)
 {
 	char *var;
 	int nbr;
@@ -16,5 +16,5 @@ void	ft_unset(t_command command)
 		command.shell->mini_env = ft_dell_var (command, var);
 		i++;
 	}
-	exit(0);
+	return(0);
 }

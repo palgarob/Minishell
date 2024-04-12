@@ -51,7 +51,7 @@ static void ft_export_env(t_command command)
 	ft_splitfree(env_export);
 }
 
-void ft_export(t_command command)
+int	ft_export(t_command command)
 {
 	char *var;
 	int nbr;
@@ -69,12 +69,12 @@ void ft_export(t_command command)
 		{
 			var = command.arguments[i];
 			if (ft_var_is_ok(var) == 0)
-				exit(0);
+				exit(0); // Cambiar a return
 			if (ft_var_exist(command, command.arguments[i]) == 1)
-				exit(0);
+				exit(0); // Cambiar a return
 			ft_add_var(command, var);
 			i++;
 		}
 	}
-	exit(0);   
+	return (0);
 }
