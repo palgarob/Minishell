@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:23:30 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/12 14:38:59 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/12 14:57:19 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,16 @@ int		ft_echo(t_command command);
 int		ft_cd(t_command command);
 int		ft_pwd(void);
 int		ft_exit(t_command command);
+int		ft_export(t_command command);
+int		ft_unset(t_command command);
+int		ft_env(t_command command);
+
+size_t ft_str_equal_len(char *s);
+int ft_is_equal (char *s);
+int ft_var_is_ok(char *s);
+int ft_var_exist(t_command command , char *var);
+void ft_add_var (t_command command, char *var);
+char **ft_dell_var(t_command command, char *var);
 
 bool	is_metachar(char c);
 char	*ft_getenv(char *var_name, char **mini_env);
