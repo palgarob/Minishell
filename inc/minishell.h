@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:23:30 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/12 14:57:19 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/13 19:04:13 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 
 # define ERR_PARSE "Parse error"
 # define ERR_SYNTAX "Syntax error"
+
+pid_t	wp; //Variable global
 
 typedef struct s_command
 {
@@ -43,13 +45,16 @@ typedef struct s_shell
 	bool				rm_here_doc;
 }	t_shell;
 
+/* Program's main flow */
 char	**parse_line(char *line);
 int		init_commands(t_shell *shell, char **args);
 int		redirect_io(t_command *command, char **split_line);
 int		expand_parameters(char **split_line, bool ignore_quotes, char **mini_env, int les);
-pid_t	exec_commands(t_command command);
+void	exec_commands(t_command command);
 
-int		builtins(t_command command);
+/* Builtin commands */
+bool	is_builtin(char *cmd);
+int		exec_builtin(t_command command);
 int		ft_echo(t_command command);
 int		ft_cd(t_command command);
 int		ft_pwd(void);
@@ -65,11 +70,13 @@ int ft_var_exist(t_command command , char *var);
 void ft_add_var (t_command command, char *var);
 char **ft_dell_var(t_command command, char *var);
 
+/* Auxiliary functions */
 bool	is_metachar(char c);
 char	*ft_getenv(char *var_name, char **mini_env);
 char	*get_cmd_path(char *cmd_name, char **mini_env);
 int		trim_quotes(char **split_line);
 
+/* Clearing and freeing functions */
 void	clear_commands(t_command command);
 void	close_pipes(t_command command);
 

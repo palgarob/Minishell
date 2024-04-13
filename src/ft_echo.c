@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:04:48 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/12 14:43:22 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/13 17:36:48 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_echo(t_command command)
 {
 	int i;
-	
+
 	i = 1;
 	if (ft_strncmp(command.arguments[1], "-n", 2) == 0)
 			i++;
