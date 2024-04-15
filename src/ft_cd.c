@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 10:02:00 by incalero          #+#    #+#             */
-/*   Updated: 2024/04/12 14:43:05 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/15 13:55:50 by incalero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_directory_cmp(void)
 	return (0);
 }
 
-int	ft_change_directory(const char *directory)
+int	ft_change_directory(t_command *commond, const char *directory)
 {
 	//ft_directory_cmp();
 	if (directory == NULL || directory[0] == '~') // Si no se proporciona ningún argumento o es la variable de entorno $USER, cambia al directorio de inicio del usuario
@@ -37,6 +37,7 @@ int	ft_change_directory(const char *directory)
 			perror("Error al cambiar al directorio de inicio");
 			return (-1);
 		}
+		ft_add_var (commond, "OLDPWD");
 	}
 	else if (chdir(directory) != 0)
 	{
@@ -47,10 +48,10 @@ int	ft_change_directory(const char *directory)
 	return (0);
 }
 
-int	ft_cd(t_command command)
+int	ft_cd(t_command *command)
 {
-	if (!command.arguments[1])
-		ft_change_directory(NULL);
-	ft_change_directory(command.arguments[1]);
+	if (!command->arguments[1])
+		ft_change_directory(command, NULL);
+	ft_change_directory(command, command->arguments[1]);
 	return (0);
 }

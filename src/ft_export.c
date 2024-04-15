@@ -1,14 +1,14 @@
 
 #include "minishell.h"
 
-static char **ft_env_mini_order(t_command command)
+static char **ft_env_mini_order(t_command *command)
 {
 	int i;
 	char *temp;
 
 	i = 0;
 	char **env;
-	env = command.shell->mini_env;
+	env = command->shell->mini_env;
 	while (env[i] && env[i + 1] != NULL)
 	{
 		if(ft_strncmp(env[i], env[i + 1], ft_str_equal_len(env[i])) > 0)
@@ -23,7 +23,7 @@ static char **ft_env_mini_order(t_command command)
 	return (env);
 }
 
-static void ft_export_env(t_command command)
+static void ft_export_env(t_command *command)
 {
 	int i;
 	int j;
@@ -35,7 +35,7 @@ static void ft_export_env(t_command command)
 	{
 		printf("declare -x ");
 		j = 0;
-		while (env_export[i][j] && env_export[i][j] != '=')
+		while (env_export[i][j] && env_export[i][j] != '=' /* && j < (int)ft_strlen(env_export[i]) */)
 			printf("%c", env_export[i][j++]);
 		if(env_export[i][j] && env_export[i][j] == '=')
 			printf("%c",env_export[i][j++]);
@@ -48,10 +48,10 @@ static void ft_export_env(t_command command)
 		printf("\n");
 		i++;
 	}
-	ft_splitfree(env_export);
+	//ft_splitfree(env_export);
 }
 
-int	ft_export(t_command command)
+int	ft_export(t_command *command)
 {
 	char *var;
 	int nbr;
@@ -59,20 +59,18 @@ int	ft_export(t_command command)
 
 	nbr = 0;
 	i = 1;
-	while (command.arguments[nbr])
+	while (command->arguments[nbr])
 		nbr++;
 	if (nbr == 1)
 		ft_export_env(command);
 	else
 	{
-		while (command.arguments[i] && i < nbr)
+		while (command->arguments[i] && i < nbr)
 		{
-			var = command.arguments[i];
-			if (ft_var_is_ok(var) == 0)
-				exit(0); // Cambiar a return
-			if (ft_var_exist(command, command.arguments[i]) == 1)
-				exit(0); // Cambiar a return
-			ft_add_var(command, var);
+			var = command->arguments[i];
+			printf("var = %s\n", var);
+			if (ft_var_is_ok(var) == 0 && ft_var_exist(command, command->arguments[i]) == 0)
+				ft_add_var(command, var);
 			i++;
 		}
 	}

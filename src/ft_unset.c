@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	ft_unset(t_command command)
+int	ft_unset(t_command *command)
 {
 	char *var;
 	int nbr;
@@ -8,12 +8,12 @@ int	ft_unset(t_command command)
 	
 	nbr = 0;
 	i = 1;
-	while (command.arguments[nbr])
+	while (command->arguments[nbr])
 		nbr++;
-	while (command.arguments[i] && i < nbr)
+	while (command->arguments[i] && i < nbr)
 	{
-		var = command.arguments[i];
-		command.shell->mini_env = ft_dell_var (command, var);
+		var = command->arguments[i];
+		command->shell->mini_env = ft_dell_var (command, var);
 		i++;
 	}
 	return(0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_commands.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 19:52:16 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/13 19:20:21 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/15 12:25:03 by incalero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static pid_t	exec_pipes(t_command command)
 	pid_t	pid;
 
 	if (!command.piped_command && is_builtin(*command.arguments))
-		return (exec_builtin(command));
+		return (exec_builtin(&command));
 	pid = fork();
 	if (pid < 0)
 		return (perror(0), -1);
@@ -89,7 +89,7 @@ static pid_t	exec_pipes(t_command command)
 	{
 		redirections(command);
 		if (is_builtin(*command.arguments))
-			exit(exec_builtin(command));
+			exit(exec_builtin(&command));
 		exec_prog(command);
 	}
 	if (command.piped_command)
@@ -101,6 +101,7 @@ void	exec_commands(t_command command)
 {
 	pid_t		wait_process;
 
+	command.shell->mini_env = ft_dell_var(&command, "OLDPWD");
 	if (command.piped_command || !is_builtin(*command.arguments))
 	{
 		wait_process = exec_pipes(command);
@@ -116,5 +117,5 @@ void	exec_commands(t_command command)
 		}
 	}
 	else
-		command.shell->les = exec_builtin(command);
+		command.shell->les = exec_builtin(&command);
 }
