@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 19:38:48 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/09 18:57:36 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/16 11:22:59 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	init_arguments(t_command *command, char **split_line)
 {
 	while (*split_line)
 	{
-		if (**split_line == '>' || **split_line == '<') // si metemos dos redirecciones, tendrá que cerrar las anteriores?
+		if (**split_line == '>' || **split_line == '<')
 		{
 			if (redirect_io(command, split_line))
 				return (1);
@@ -48,7 +48,8 @@ static int	init_arguments(t_command *command, char **split_line)
 		}
 		else if (!is_metachar(**split_line))
 		{
-			if (expand_parameters(split_line, false, command->shell->mini_env, command->shell->les))
+			if (expand_parameters(split_line, false,
+					command->shell->mini_env, command->shell->les))
 				return (1);
 			ft_splitadd(*split_line, &command->arguments);
 		}

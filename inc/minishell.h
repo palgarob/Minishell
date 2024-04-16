@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:23:30 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/13 19:04:13 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/16 12:04:47 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,7 @@ int		trim_quotes(char **split_line);
 /* Clearing and freeing functions */
 void	clear_commands(t_command command);
 void	close_pipes(t_command command);
+void	perror_exit(void);
+void	close_input_fd(t_command command);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 19:52:16 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/13 19:20:21 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/16 11:11:02 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,36 +27,25 @@ static void	redirections(t_command command)
 {
 	if (command.piped_command)
 		if (dup2(command.piped_command->pipe_end[1], STDOUT_FILENO) < 0)
-		{
-			perror(NULL);
-			exit(1);
-		}
+			perror_exit();
 	if (command.close_pipe)
 		if (dup2(command.pipe_end[0], STDIN_FILENO) < 0)
-		{
-			perror(NULL);
-			exit(1);
-		}
+			perror_exit();
 	close_pipes(command.shell->first_command);
 	if (command.close_in)
 		if (dup2(command.input, STDIN_FILENO) < 0)
-		{
-			perror(NULL);
-			exit(1);
-		}
+			perror_exit();
 	if (command.close_out)
 		if (dup2(command.output, STDOUT_FILENO) < 0)
-		{
-			perror(NULL);
-			exit(1);
-		}
+			perror_exit();
 }
 
 void	exec_prog(t_command command)
 {
 	char	*cmd_path;
-	
-	if (ft_strchr(*command.arguments, '/') || !path_exists(command.shell->mini_env))
+
+	if (ft_strchr(*command.arguments, '/')
+		|| !path_exists(command.shell->mini_env))
 	{
 		if (access(*command.arguments, F_OK))
 			return (perror(*command.arguments), exit(127));
@@ -71,8 +60,8 @@ void	exec_prog(t_command command)
 		perror(cmd_path);
 		if (errno == 13)
 			exit(126);
-		/* else
-			exit(1); */
+		else
+			exit(1);
 	}
 }
 

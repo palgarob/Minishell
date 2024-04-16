@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 20:34:21 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/09 19:00:00 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/16 11:11:41 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	insert_value(char **split_line, int j, char **mini_env)
 	i = 0;
 	while ((*split_line)[k] != ' ' && (*split_line)[k] != 0
 			&& (*split_line)[k] != '\'' && (*split_line)[k] != '"'
-			&& (*split_line)[k] != '\t')
+			&& (*split_line)[k] != '\t' && (*split_line)[k] != '=')
 	{
 		k++;
 		i++;
@@ -70,7 +70,8 @@ static int	search_expansion(char **split_line, char **mini_env, int les, int j)
 	return (0);
 }
 
-int	expand_parameters(char **split_line, bool ignore_quotes, char **mini_env, int les)
+int	expand_parameters(char **split_line, bool ignore_quotes,
+	char **mini_env, int les)
 {
 	int		j;
 

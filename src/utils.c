@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 14:31:42 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/13 18:54:18 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/16 12:45:46 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,8 @@ bool	is_metachar(char c)
 	return (false);
 }
 
-char	*ft_getenv(char *var_name, char **mini_env)
+char	*ft_getenv(char *var_name, char **mini_env)//free memory
 {
-	//free memory
 	char	*value;
 
 	value = NULL;
@@ -30,7 +29,7 @@ char	*ft_getenv(char *var_name, char **mini_env)
 		if (ft_strncmp(*mini_env, var_name, ft_strlen(var_name) + 1) == 61)
 		{
 			value = *mini_env + ft_strlen(var_name) + 1;
-			break;
+			break ;
 		}
 		mini_env++;
 	}
@@ -111,6 +110,6 @@ char	*get_cmd_path(char *cmd_name, char **mini_env)
 	if (cmd_path)
 		return (cmd_path);
 	return (write(STDERR_FILENO, cmd_name, ft_strlen(cmd_name)),
-			write(STDERR_FILENO, ": command not found\n", 20),
-			exit(127), NULL);
+		write(STDERR_FILENO, ": command not found\n", 20),
+		exit(127), NULL);
 }

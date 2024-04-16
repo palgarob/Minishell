@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:22:50 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/13 18:47:58 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:13:52 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,13 @@ static void	enter(t_shell *shell, char **split_line)
 {
 	if (!init_commands(shell, split_line))
 		exec_commands(shell->first_command);
-	ft_splitfree(split_line);
 	clear_commands(shell->first_command);
-	if (shell->rm_here_doc)
-		unlink("here_doc");
 }
 
 static void	init_shell(t_shell *shell, char **environment)
 {
 	shell->mini_env = ft_splitdup(environment);
-	//eliminar y modificar variables de entorno que haya que modificar (como el level o el _= ...)
+	//eliminar y modificar variables de entorno que haya que modificar
 	if (!shell->mini_env)
 	{
 		perror(NULL);
@@ -60,7 +57,9 @@ static void	init_shell(t_shell *shell, char **environment)
 	shell->rm_here_doc = false;
 }
 
-int	main(__attribute__((unused)) int argc, __attribute__((unused)) char **argv, char **envp)
+int	main(__attribute__((unused)) int argc,
+		__attribute__((unused)) char **argv,
+		char **envp)
 {
 	t_shell		shell;
 	char		*line;
@@ -75,14 +74,16 @@ int	main(__attribute__((unused)) int argc, __attribute__((unused)) char **argv, 
 		signal(SIGINT, default_m);
 		signal(SIGQUIT, default_m);
 		if (!line)
-			exit(0); //rl_clear_history y tiene que llamar a la función ft_exit
+			break ; //rl_clear_history y tiene que llamar a la función ft_exi
 		if (*line)
 		{
 			add_history(line);
 			split_line = parse_line(line);
 			if (split_line)
 				enter(&shell, split_line);
+			ft_splitfree(split_line);
 		}
 	}
+	ft_exit(shell.first_command);
 	return (0);
 }
