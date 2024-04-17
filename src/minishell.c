@@ -6,7 +6,7 @@
 /*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:22:50 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/15 12:23:15 by incalero         ###   ########.fr       */
+/*   Updated: 2024/04/17 11:22:30 by incalero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ static void	enter(t_shell *shell, char **split_line)
 static void	init_shell(t_shell *shell, char **environment)
 {
 	shell->mini_env = ft_splitdup(environment);
-	//eliminar y modificar variables de entorno que haya que modificar (como el level o el _= ...)
 	if (!shell->mini_env)
 	{
 		perror(NULL);
 		exit(1);
 	}
+	shell->mini_env = ft_dell_oldpwd (shell, "OLDPWD");
 	shell->les = 0;
 	shell->rm_here_doc = false;
 }
@@ -67,11 +67,11 @@ int	main(__attribute__((unused)) int argc, __attribute__((unused)) char **argv, 
 	char		**split_line;
 
 	init_shell(&shell, envp);
-	while (1)
+	while (1)   
 	{
 		signal(SIGINT, interactive_m);
 		signal(SIGQUIT, interactive_m);
-		line = readline("$ ");
+		line = readline("minishell $ ");
 		signal(SIGINT, default_m);
 		signal(SIGQUIT, default_m);
 		if (!line)

@@ -6,7 +6,7 @@
 /*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:04:48 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/15 12:17:42 by incalero         ###   ########.fr       */
+/*   Updated: 2024/04/17 09:28:39 by incalero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 int	ft_echo(t_command *command)
 {
-	int i;
+	int	i;
 
 	i = 1;
-	if(command->arguments[1] == NULL)
+	if (command->arguments[1] == NULL)
 		return (0);
 	if (ft_strncmp(command->arguments[1], "-n", 2) == 0)
-			i++;
+		i++;
 	while (command->arguments[i])
 	{
 		ft_print_str(command->arguments[i]);

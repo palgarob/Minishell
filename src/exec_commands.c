@@ -6,7 +6,7 @@
 /*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 19:52:16 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/15 12:25:03 by incalero         ###   ########.fr       */
+/*   Updated: 2024/04/17 11:57:29 by incalero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ void	exec_commands(t_command command)
 {
 	pid_t		wait_process;
 
-	command.shell->mini_env = ft_dell_var(&command, "OLDPWD");
 	if (command.piped_command || !is_builtin(*command.arguments))
 	{
 		wait_process = exec_pipes(command);
