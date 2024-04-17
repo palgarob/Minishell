@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 19:52:16 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/16 11:11:02 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/17 15:30:19 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static pid_t	exec_pipes(t_command command)
 {
 	pid_t	pid;
 
-	if (!command.piped_command && is_builtin(*command.arguments))
+	if (!command.piped_command && is_builtin(*command.arguments)) //esto sobra no?
 		return (exec_builtin(command));
 	pid = fork();
 	if (pid < 0)
@@ -104,6 +104,6 @@ void	exec_commands(t_command command)
 				command.shell->les = WTERMSIG(command.shell->les) + 128;
 		}
 	}
-	else
+	else //redirecciones
 		command.shell->les = exec_builtin(command);
 }

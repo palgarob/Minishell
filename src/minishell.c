@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:22:50 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/16 15:13:52 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/17 16:58:34 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ static void	interactive_m(int signum)
 	}
 }
 
-void	default_m(int signum)
+static void	default_m(int signum)
 {
 	if (signum == SIGINT)
 	{
-		printf("\n");
+		ft_printf("\n");
 		kill(wp, SIGINT);
 	}
 	if (signum == SIGQUIT)
@@ -74,7 +74,11 @@ int	main(__attribute__((unused)) int argc,
 		signal(SIGINT, default_m);
 		signal(SIGQUIT, default_m);
 		if (!line)
-			break ; //rl_clear_history y tiene que llamar a la función ft_exi
+		{
+			printf("\033[A");
+			printf("$ ");
+			break ;
+		}
 		if (*line)
 		{
 			add_history(line);
@@ -84,6 +88,6 @@ int	main(__attribute__((unused)) int argc,
 			ft_splitfree(split_line);
 		}
 	}
-	ft_exit(shell.first_command);
+	ft_exit(shell);
 	return (0);
 }

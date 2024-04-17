@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:23:30 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/16 12:04:47 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/17 17:02:10 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int		exec_builtin(t_command command);
 int		ft_echo(t_command command);
 int		ft_cd(t_command command);
 int		ft_pwd(void);
-int		ft_exit(t_command command);
+int		ft_exit(t_shell shell);
 int		ft_export(t_command command);
 int		ft_unset(t_command command);
 int		ft_env(t_command command);
@@ -75,6 +75,7 @@ bool	is_metachar(char c);
 char	*ft_getenv(char *var_name, char **mini_env);
 char	*get_cmd_path(char *cmd_name, char **mini_env);
 int		trim_quotes(char **split_line);
+int		here_doc(t_command *command, char **split_line);
 
 /* Clearing and freeing functions */
 void	clear_commands(t_command command);
