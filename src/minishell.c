@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:22:50 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/18 20:47:57 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/18 21:20:34 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,14 @@ static void	init_shell(t_shell *shell, char **environment)
 	}
 	shell->les = 0;
 	shell->rm_here_doc = false;
+	shell->stdin_fd = dup(STDIN_FILENO);
+	shell->stdout_fd = dup(STDOUT_FILENO);
+	if (shell->stdin_fd == -1 || shell->stdout_fd == -1)
+	{
+		perror(NULL);
+		ft_splitfree(shell->mini_env);
+		exit(1);
+	}
 }
 
 int	main(__attribute__((unused)) int argc,

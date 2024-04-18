@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 19:52:16 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/18 20:30:23 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/18 20:59:53 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,9 @@ void	exec_commands(t_command command)
 				command.shell->les = WTERMSIG(command.shell->les) + 128;
 		}
 	}
-	else //redirecciones
+	else
+	{
+		redirections(command);
 		command.shell->les = exec_builtin(command);
+	}
 }

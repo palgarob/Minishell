@@ -6,11 +6,19 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 13:28:16 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/18 17:13:23 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/18 21:16:42 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	restore_redirections(t_shell shell)
+{
+	if (dup2(shell.stdin_fd, STDIN_FILENO) < 0
+		|| dup2(shell.stdout_fd, STDOUT_FILENO) < 0)
+		return (perror(NULL), 1);
+	return (0);
+}
 
 bool	is_builtin(char *cmd)
 {
@@ -27,19 +35,23 @@ bool	is_builtin(char *cmd)
 
 int	exec_builtin(t_command command)
 {
+	int	status;
+	
 	if (ft_strncmp(*command.arguments, "echo", 5) == 0)
-		return (ft_echo(command));
-	if (ft_strncmp(*command.arguments, "cd", 3) == 0)
-		return (ft_cd(command));
-	if (ft_strncmp(*command.arguments, "pwd", 4) == 0)
-		return (ft_pwd());
-	if (ft_strncmp(*command.arguments, "export", 7) == 0)
-		return (ft_export(command));
-	if (ft_strncmp(*command.arguments, "unset", 6) == 0)
-		return (ft_unset(command));
-	if (ft_strncmp(*command.arguments, "env", 4) == 0)
-		return (ft_env(command));
-	if (ft_strncmp(*command.arguments, "exit", 5) == 0)
-		return (ft_exit(*command.shell));
-	return (1);
+		status = ft_echo(command);
+	else if (ft_strncmp(*command.arguments, "cd", 3) == 0)
+		status = ft_cd(command);
+	else if (ft_strncmp(*command.arguments, "pwd", 4) == 0)
+		status = ft_pwd();
+	else if (ft_strncmp(*command.arguments, "export", 7) == 0)
+		status = ft_export(command);
+	else if (ft_strncmp(*command.arguments, "unset", 6) == 0)
+		status = ft_unset(command);
+	else if (ft_strncmp(*command.arguments, "env", 4) == 0)
+		status = ft_env(command);
+	else if (ft_strncmp(*command.arguments, "exit", 5) == 0)
+		status = ft_exit(*command.shell);
+	if (restore_redirections(*command.shell))
+		return (1);
+	return (status);
 }

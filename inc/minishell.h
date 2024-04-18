@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:23:30 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/18 20:30:16 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/18 21:08:17 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ typedef struct s_shell
 	char				**mini_env;
 	int					les;
 	bool				rm_here_doc;
+	int					stdin_fd;
+	int					stdout_fd;
 }	t_shell;
 
 /* Program's main flow */
