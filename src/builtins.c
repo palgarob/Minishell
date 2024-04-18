@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 13:28:16 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/13 18:50:32 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/18 17:13:23 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@ int	exec_builtin(t_command command)
 	if (ft_strncmp(*command.arguments, "env", 4) == 0)
 		return (ft_env(command));
 	if (ft_strncmp(*command.arguments, "exit", 5) == 0)
-		return (ft_exit(command));
+		return (ft_exit(*command.shell));
 	return (1);
 }

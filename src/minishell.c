@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:22:50 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/17 16:58:34 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/18 20:47:57 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,19 @@ static void	interactive_m(int signum)
 static void	default_m(int signum)
 {
 	if (signum == SIGINT)
-	{
 		ft_printf("\n");
-		kill(wp, SIGINT);
-	}
 	if (signum == SIGQUIT)
-	{
 		printf("Quit: 3\n");
-		kill(wp, SIGQUIT);
-	}
 }
 
 static void	enter(t_shell *shell, char **split_line)
 {
+	signal(SIGINT, default_m);
 	if (!init_commands(shell, split_line))
+	{
+		signal(SIGQUIT, default_m);
 		exec_commands(shell->first_command);
+	}
 	clear_commands(shell->first_command);
 }
 
@@ -71,8 +69,6 @@ int	main(__attribute__((unused)) int argc,
 		signal(SIGINT, interactive_m);
 		signal(SIGQUIT, interactive_m);
 		line = readline("$ ");
-		signal(SIGINT, default_m);
-		signal(SIGQUIT, default_m);
 		if (!line)
 		{
 			printf("\033[A");

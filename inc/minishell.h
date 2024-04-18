@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:23:30 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/17 17:02:10 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/18 20:30:16 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@
 
 # define ERR_PARSE "Parse error"
 # define ERR_SYNTAX "Syntax error"
-
-pid_t	wp; //Variable global
 
 typedef struct s_command
 {

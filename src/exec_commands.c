@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 19:52:16 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/17 15:30:19 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/18 20:30:23 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ void	exec_commands(t_command command)
 		close_pipes(command);
 		if (wait_process > 0)
 		{
-			wp = wait_process;
 			waitpid(wait_process, &command.shell->les, 0);
 			if (WIFEXITED(command.shell->les))
 				command.shell->les = WEXITSTATUS(command.shell->les);

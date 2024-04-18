@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:41:35 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/17 17:00:07 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/18 20:46:04 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,9 @@ int	here_doc(t_command *command, char **split_line)
 	if (!pid)
 	{
 		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
+		signal(SIGQUIT, SIG_IGN);
 		exit(here_doc1(command, split_line));
 	}
-	wp = pid;
 	waitpid(pid, &status, 0);
 	command->shell->rm_here_doc = true; //comprobar con access
 	if (status)
