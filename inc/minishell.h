@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:23:30 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/18 21:08:17 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/18 21:26:04 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ typedef struct s_shell
 char	**parse_line(char *line);
 int		init_commands(t_shell *shell, char **args);
 int		redirect_io(t_command *command, char **split_line);
-int		expand_parameters(char **split_line, bool ignore_quotes, char **mini_env, int les);
+int		expand_parameters(char **split_line,
+			bool ignore_quotes, char **mini_env, int les);
 void	exec_commands(t_command command);
 
 /* Builtin commands */
@@ -63,12 +64,12 @@ int		ft_export(t_command command);
 int		ft_unset(t_command command);
 int		ft_env(t_command command);
 
-size_t ft_str_equal_len(char *s);
-int ft_is_equal (char *s);
-int ft_var_is_ok(char *s);
-int ft_var_exist(t_command command , char *var);
-void ft_add_var (t_command command, char *var);
-char **ft_dell_var(t_command command, char *var);
+size_t	ft_str_equal_len(char *s);
+int		ft_is_equal(char *s);
+int		ft_var_is_ok(char *s);
+int		ft_var_exist(t_command command, char *var);
+void	ft_add_var(t_command command, char *var);
+char	**ft_dell_var(t_command command, char *var);
 
 /* Auxiliary functions */
 bool	is_metachar(char c);

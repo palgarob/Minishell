@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 13:28:16 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/18 21:16:42 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/18 21:27:30 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ bool	is_builtin(char *cmd)
 int	exec_builtin(t_command command)
 {
 	int	status;
-	
+
 	if (ft_strncmp(*command.arguments, "echo", 5) == 0)
 		status = ft_echo(command);
 	else if (ft_strncmp(*command.arguments, "cd", 3) == 0)

@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:41:35 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/18 20:46:04 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/18 21:30:43 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,12 @@ static int	here_rl(t_command *command, char **split_line, int quoted,
 		if (expand_parameters(&line, true, command->shell->mini_env,
 				command->shell->les))
 			return (-1);
-	*content_ptr = ft_strjoin_gnl(*content_ptr, line); //memory
+	*content_ptr = ft_strjoin_gnl(*content_ptr, line);
+	if (!*content_ptr)
+		return (-1);
 	*content_ptr = ft_strjoin_gnl(*content_ptr, "\n");
+	if (!*content_ptr)
+		return (-1);
 	return (0);
 }
 
@@ -88,7 +92,7 @@ int	here_doc(t_command *command, char **split_line)
 		exit(here_doc1(command, split_line));
 	}
 	waitpid(pid, &status, 0);
-	command->shell->rm_here_doc = true; //comprobar con access
+	command->shell->rm_here_doc = true;
 	if (status)
 		return (1);
 	command->input = open("here_doc", O_RDONLY);

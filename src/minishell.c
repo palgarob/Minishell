@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:22:50 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/18 21:20:34 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/18 21:35:12 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,28 @@ static void	default_m(int signum)
 		printf("Quit: 3\n");
 }
 
-static void	enter(t_shell *shell, char **split_line)
+static void	enter(t_shell *shell, char *line)
 {
-	signal(SIGINT, default_m);
-	if (!init_commands(shell, split_line))
+	char		**split_line;
+
+	add_history(line);
+	split_line = parse_line(line);
+	if (split_line)
 	{
-		signal(SIGQUIT, default_m);
-		exec_commands(shell->first_command);
+		signal(SIGINT, default_m);
+		if (!init_commands(shell, split_line))
+		{
+			signal(SIGQUIT, default_m);
+			exec_commands(shell->first_command);
+		}
+		clear_commands(shell->first_command);
 	}
-	clear_commands(shell->first_command);
+	ft_splitfree(split_line);
 }
 
 static void	init_shell(t_shell *shell, char **environment)
 {
-	shell->mini_env = ft_splitdup(environment);
-	//eliminar y modificar variables de entorno que haya que modificar
+	shell->mini_env = ft_splitdup(environment); //eliminar y modificar vars
 	if (!shell->mini_env)
 	{
 		perror(NULL);
@@ -69,7 +76,6 @@ int	main(__attribute__((unused)) int argc,
 {
 	t_shell		shell;
 	char		*line;
-	char		**split_line;
 
 	init_shell(&shell, envp);
 	while (1)
@@ -78,20 +84,12 @@ int	main(__attribute__((unused)) int argc,
 		signal(SIGQUIT, interactive_m);
 		line = readline("$ ");
 		if (!line)
-		{
-			printf("\033[A");
-			printf("$ ");
 			break ;
-		}
 		if (*line)
-		{
-			add_history(line);
-			split_line = parse_line(line);
-			if (split_line)
-				enter(&shell, split_line);
-			ft_splitfree(split_line);
-		}
+			enter(&shell, line);
 	}
+	printf("\033[A");
+	printf("$ ");
 	ft_exit(shell);
 	return (0);
 }

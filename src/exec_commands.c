@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 19:52:16 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/18 20:59:53 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/18 21:27:55 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ static pid_t	exec_pipes(t_command command)
 {
 	pid_t	pid;
 
-	if (!command.piped_command && is_builtin(*command.arguments)) //esto sobra no?
-		return (exec_builtin(command));
 	pid = fork();
 	if (pid < 0)
 		return (perror(0), -1);
