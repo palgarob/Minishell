@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_commands.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 19:38:48 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/09 18:57:36 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/18 11:43:10 by incalero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

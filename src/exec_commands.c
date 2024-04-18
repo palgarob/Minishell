@@ -6,7 +6,7 @@
 /*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 19:52:16 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/17 11:57:29 by incalero         ###   ########.fr       */
+/*   Updated: 2024/04/18 15:35:37 by incalero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	redirections(t_command command)
 		{
 			perror(NULL);
 			exit(1);
-		}
+		} 
 }
 
 void	exec_prog(t_command command)
@@ -97,6 +97,17 @@ static pid_t	exec_pipes(t_command command)
 	return (pid);
 }
 
+/* static void	redirections_builts(t_command *command)
+{
+	printf("input = %d\n", command->input);
+	if (expand_parameters(split_line + 1, false, command->shell->mini_env, command->shell->les))
+		return (1);
+	command->input = open(*(split_line + 1), O_RDONLY);
+	if (command->input < 0)
+		return (perror(*(split_line + 1)), 1);
+	command->close_in = true;
+} */
+
 void	exec_commands(t_command command)
 {
 	pid_t		wait_process;
@@ -116,5 +127,27 @@ void	exec_commands(t_command command)
 		}
 	}
 	else
+	{
+		if (command.close_in)
+		{
+			if (dup2(command.input, STDIN_FILENO) < 0)
+			{
+				perror(NULL);
+				exit(1);
+			}
+			close (command.input);
+		}
+		if (command.close_out)
+		{
+			if (dup2(command.output, STDOUT_FILENO) < 0)
+			{
+				perror(NULL);
+				exit(1);
+			}
+			close (command.output);
+		}
 		command.shell->les = exec_builtin(&command);
-}
+        close(STDIN_FILENO);
+        close(STDOUT_FILENO);
+	}
+}  
