@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:27:17 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/17 13:22:01 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/19 12:47:12 by incalero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@ int	ft_exit(t_shell shell)
 	printf("exit\n");
 	//system("leaks minishell");
 	ft_splitfree(shell.mini_env);
-	exit(42);
+	exit(0);
 	return (0);
 }
