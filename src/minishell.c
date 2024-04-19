@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:22:50 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/18 21:35:12 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/19 09:07:40 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ static void	init_shell(t_shell *shell, char **environment)
 		perror(NULL);
 		exit(1);
 	}
+	shell->mini_env = ft_dell_oldpwd(shell, "OLDPWD");
 	shell->les = 0;
 	shell->rm_here_doc = false;
 	shell->stdin_fd = dup(STDIN_FILENO);

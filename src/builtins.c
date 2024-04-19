@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 13:28:16 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/18 21:27:30 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/19 09:22:17 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,25 @@ bool	is_builtin(char *cmd)
 	return (false);
 }
 
-int	exec_builtin(t_command command)
+int	exec_builtin(t_command *command)
 {
 	int	status;
 
-	if (ft_strncmp(*command.arguments, "echo", 5) == 0)
+	if (ft_strncmp(*command->arguments, "echo", 5) == 0)
 		status = ft_echo(command);
-	else if (ft_strncmp(*command.arguments, "cd", 3) == 0)
+	else if (ft_strncmp(*command->arguments, "cd", 3) == 0)
 		status = ft_cd(command);
-	else if (ft_strncmp(*command.arguments, "pwd", 4) == 0)
+	else if (ft_strncmp(*command->arguments, "pwd", 4) == 0)
 		status = ft_pwd();
-	else if (ft_strncmp(*command.arguments, "export", 7) == 0)
+	else if (ft_strncmp(*command->arguments, "export", 7) == 0)
 		status = ft_export(command);
-	else if (ft_strncmp(*command.arguments, "unset", 6) == 0)
+	else if (ft_strncmp(*command->arguments, "unset", 6) == 0)
 		status = ft_unset(command);
-	else if (ft_strncmp(*command.arguments, "env", 4) == 0)
+	else if (ft_strncmp(*command->arguments, "env", 4) == 0)
 		status = ft_env(command);
-	else if (ft_strncmp(*command.arguments, "exit", 5) == 0)
-		status = ft_exit(*command.shell);
-	if (restore_redirections(*command.shell))
+	else if (ft_strncmp(*command->arguments, "exit", 5) == 0)
+		status = ft_exit(*command->shell);
+	if (restore_redirections(*command->shell))
 		return (1);
 	return (status);
 }

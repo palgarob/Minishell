@@ -3,54 +3,89 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 10:02:00 by incalero          #+#    #+#             */
-/*   Updated: 2024/04/12 14:43:05 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/18 11:03:43 by incalero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
-int	ft_directory_cmp(void)
+static char	*ft_get_cd(t_command *command, char *var)
 {
-	char cwd[1024];
-	if (getcwd(cwd, sizeof(cwd)) != NULL)
+	int		j;
+	int		i;
+	char	*cd;
+	char	*env;
+
+	i = 0;
+	j = 0;
+	while (command->shell->mini_env[i])
 	{
-		printf("Directorio actual: %s\n", cwd);
+		if (ft_strncmp(command->shell->mini_env[i], var, ft_strlen(var)) == 0)
+			break ;
+		i++;
+	}
+	env = command->shell->mini_env[i];
+	while (env[j])
+	{
+		if (env[j] == '=')
+			break ;
+		j++;
+	}
+	cd = ft_substr(env, j + 1, ft_strlen(env));
+	return (cd);
+}
+
+static int	ft_get_pwd(t_command *command, char *var)
+{
+	char	cwd[1024];
+	char	*new;
+	char	*pwd;
+
+	new = getcwd(cwd, sizeof(cwd));
+	if (ft_var_exist(command, var) == 0)
+		ft_add_var(command, var);
+	pwd = ft_strjoin("PWD=", new);
+	if (ft_var_exist(command, pwd) == 0)
+		ft_add_var(command, pwd);
+	return (0);
+}
+
+static int	ft_change_directory(t_command *command, const char *directory)
+{
+	char	cwd[1024];
+	char	*var;
+
+	var = ft_strjoin("OLDPWD=", getcwd(cwd, sizeof(cwd)));
+	if (directory != NULL && directory[0] == '-')
+	{
+		if (chdir(ft_get_cd (command, "OLDPWD=")) != 0)
+			return (perror(""), 1);
+		ft_get_pwd(command, var);
+		printf("%s\n", getcwd(cwd, sizeof(cwd)));
+	}
+	else if (directory == NULL || directory[0] == '~')
+	{
+		if (chdir(ft_get_cd (command, "HOME=")) != 0)
+			return (perror(""), 1);
+		ft_get_pwd(command, var);
 	}
 	else
 	{
-		perror("Error al obtener el directorio actual");
-		return (-1);
+		if (chdir(directory) != 0)
+			return (write (1, "minishell: cd: ", 15), perror((char *)directory), 1);
+		ft_get_pwd(command, var);
 	}
 	return (0);
 }
 
-int	ft_change_directory(const char *directory)
+int	ft_cd(t_command *command)
 {
-	//ft_directory_cmp();
-	if (directory == NULL || directory[0] == '~') // Si no se proporciona ningún argumento o es la variable de entorno $USER, cambia al directorio de inicio del usuario
-	{
-		if (chdir(getenv("HOME")) != 0) 
-		{
-			perror("Error al cambiar al directorio de inicio");
-			return (-1);
-		}
-	}
-	else if (chdir(directory) != 0)
-	{
-		write (1, "cd: ", 4);
-		return (perror((char *)directory), -1);
-	}
-	//ft_directory_cmp();
-	return (0);
-}
-
-int	ft_cd(t_command command)
-{
-	if (!command.arguments[1])
-		ft_change_directory(NULL);
-	ft_change_directory(command.arguments[1]);
+	if (command->arguments[1] == NULL)
+		ft_change_directory(command, NULL);
+	else
+		ft_change_directory(command, command->arguments[1]);
 	return (0);
 }
