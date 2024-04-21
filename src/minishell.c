@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:22:50 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/19 09:07:40 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/21 22:20:11 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	enter(t_shell *shell, char *line)
 
 static void	init_shell(t_shell *shell, char **environment)
 {
-	shell->mini_env = ft_splitdup(environment); //eliminar y modificar vars
+	shell->mini_env = ft_splitdup(environment);
 	if (!shell->mini_env)
 	{
 		perror(NULL);
@@ -90,7 +90,9 @@ int	main(__attribute__((unused)) int argc,
 			enter(&shell, line);
 	}
 	printf("\033[A");
-	printf("$ ");
-	ft_exit(shell);
+	printf("$ exit\n");
+	ft_splitfree(shell.mini_env);
+	rl_clear_history();
+	exit(0);
 	return (0);
 }

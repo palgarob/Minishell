@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:23:30 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/19 08:51:30 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/21 22:20:38 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int		ft_var_exist(t_command *command, char *var);
 void	ft_add_var(t_command *command, char *var);
 char	**ft_dell_var(t_command *command, char *var);
 char	**ft_dell_oldpwd(t_shell *shell, char *var);
-char 	**ft_dell(char **env_mini, char **envcpy, int var_nbr);
+char	**ft_dell(char **env_mini, char **envcpy, int var_nbr);
 
 /* Auxiliary functions */
 bool	is_metachar(char c);

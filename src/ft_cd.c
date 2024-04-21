@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 10:02:00 by incalero          #+#    #+#             */
-/*   Updated: 2024/04/18 11:03:43 by incalero         ###   ########.fr       */
+/*   Updated: 2024/04/21 22:19:39 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ static int	ft_change_directory(t_command *command, const char *directory)
 	else
 	{
 		if (chdir(directory) != 0)
-			return (write (1, "minishell: cd: ", 15), perror((char *)directory), 1);
+			return (write (1, "minishell: cd: ", 15),
+				perror((char *)directory), 1);
 		ft_get_pwd(command, var);
 	}
 	return (0);
