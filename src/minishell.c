@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:22:50 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/22 15:02:29 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/22 16:10:25 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,5 @@ int	main(__attribute__((unused)) int argc,
 	printf("$ exit\n");
 	ft_splitfree(shell.mini_env);
 	rl_clear_history();
-	exit(0);
 	return (0);
 }
