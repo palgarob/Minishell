@@ -7,7 +7,7 @@ OBJ_DIR	= obj
 INC_DIR	= inc
 
 RM		= rm -rf
-CFLAGS	= -Wall -Wextra -Werror -I$(INC_DIR) -I$(HOME)/.brew/Cellar/readline/8.2.10/include
+CFLAGS	= -Wall -Wextra -Werror -I$(INC_DIR) -I$(HOME)/.brew/Cellar/readline/8.2.10/include -g
 LDFLAGS	= -Llibft-improved -L$(HOME)/.brew/Cellar/readline/8.2.10/lib
 LDLIBS	= -lft -lreadline
 
@@ -25,7 +25,7 @@ $(NAME) : $(OBJ)
 
 $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c
 	mkdir -p $(OBJ_DIR)
-	$(CC) -c $(CFLAGS) $< -o $@
+	$(CC) -c $< $(CFLAGS) -o $@
 
 ft :
 	$(MAKE) -C $(FT_DIR)
