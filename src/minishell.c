@@ -6,7 +6,7 @@
 /*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:22:50 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/22 11:46:13 by incalero         ###   ########.fr       */
+/*   Updated: 2024/04/22 14:31:02 by incalero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ int	main(__attribute__((unused)) int argc,
 			break ;
 		if (*line)
 			enter(&shell, line);
+		free(line);
 	}
 	printf("\033[A");
 	printf("$ exit\n");

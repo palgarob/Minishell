@@ -16,7 +16,7 @@ SRC		= $(addsuffix .c,$(addprefix $(SRC_DIR)/,$(FILES)))
 OBJ		= $(addsuffix .o,$(addprefix $(OBJ_DIR)/,$(FILES)))
 
 .PHONY : all re clean fclean ft
-#.SILENT :
+.SILENT :
 
 all : ft $(NAME)
 
