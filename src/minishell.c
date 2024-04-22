@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:22:50 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/21 22:20:11 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/22 11:13:09 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ static void	enter(t_shell *shell, char *line)
 			exec_commands(shell->first_command);
 		}
 		clear_commands(shell->first_command);
+		ft_splitfree(split_line);
 	}
-	ft_splitfree(split_line);
 }
 
 static void	init_shell(t_shell *shell, char **environment)

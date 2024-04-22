@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:27:17 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/21 22:19:52 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/22 11:02:27 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ unsigned char	ft_atoc(char *str)
 unsigned char	exit_with_arg(char **arguments)
 {
 	int				i;
-	unsigned char	status;
 
 	i = count_spaces(arguments[1]);
 	if (arguments[1][i] == '-'
