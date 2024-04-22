@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 10:02:00 by incalero          #+#    #+#             */
-/*   Updated: 2024/04/21 22:19:39 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/22 13:27:29 by incalero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,6 @@ int	ft_cd(t_command *command)
 	if (command->arguments[1] == NULL)
 		ft_change_directory(command, NULL);
 	else
-		ft_change_directory(command, command->arguments[1]);
+		return (ft_change_directory(command, command->arguments[1]));
 	return (0);
 }

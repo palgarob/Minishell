@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:27:17 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/21 22:19:52 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/22 13:35:51 by incalero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ unsigned char	ft_atoc(char *str)
 unsigned char	exit_with_arg(char **arguments)
 {
 	int				i;
-	unsigned char	status;
 
 	i = count_spaces(arguments[1]);
 	if (arguments[1][i] == '-'
@@ -90,7 +89,7 @@ int	ft_exit(t_shell shell)
 	}
 	ft_splitfree(shell.mini_env);
 	ft_splitfree(shell.first_command.arguments);
-	rl_clear_history();
+	clear_history();
 	exit(status);
 	return (0);
 }

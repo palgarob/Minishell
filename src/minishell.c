@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:22:50 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/21 22:20:11 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/22 11:46:13 by incalero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	main(__attribute__((unused)) int argc,
 	printf("\033[A");
 	printf("$ exit\n");
 	ft_splitfree(shell.mini_env);
-	rl_clear_history();
+	clear_history();
 	exit(0);
 	return (0);
 }

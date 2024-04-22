@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:23:30 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/21 22:20:38 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/22 12:47:03 by incalero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int		ft_env(t_command *command);
 
 size_t	ft_str_equal_len(char *s);
 int		ft_is_equal(char *s);
-int		ft_var_is_ok(char *s);
+int		ft_var_is_ok(t_command *command, char *s);
 int		ft_var_exist(t_command *command, char *var);
 void	ft_add_var(t_command *command, char *var);
 char	**ft_dell_var(t_command *command, char *var);
