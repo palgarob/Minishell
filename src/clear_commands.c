@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 11:22:49 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/16 15:06:23 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/22 23:54:37 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,16 @@ void	clear_commands(t_command command)
 		close(command.input);
 	if (command.close_out)
 		close(command.output);
+	if (command.arguments)
+		free(command.arguments);
 	while (command.piped_command)
 	{
 		if (command.piped_command->close_in)
 			close(command.piped_command->input);
 		if (command.piped_command->close_out)
 			close(command.piped_command->output);
+		if (command.piped_command->arguments)
+			free(command.piped_command->arguments);
 		aux = command.piped_command;
 		command = *command.piped_command;
 		if (aux)
