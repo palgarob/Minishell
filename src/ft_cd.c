@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 10:02:00 by incalero          #+#    #+#             */
-/*   Updated: 2024/04/23 13:18:53 by incalero         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:46:24 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,9 @@ static int	ft_change_old_directory(t_command *command)
 	var = ft_strjoin("OLDPWD=", getcwd(cwd, sizeof(cwd)));
 	cd = ft_get_cd(command, "OLDPWD");
 	if (cd == 0)
-		return (1);
+		return (free (cd),free (var), 1);
 	else
-		chdir(ft_get_cd (command, "OLDPWD"));
+		chdir(cd);
 	ft_get_pwd(command, var);
 	printf("%s\n", getcwd(cwd, sizeof(cwd)));
 	return (free (cd), free (var),0);
@@ -90,7 +90,6 @@ static int	ft_change_home_directory(t_command *command)
 	char	*home;
 	
 	var = ft_strjoin("OLDPWD=", getcwd(cwd, sizeof(cwd)));
-	printf("var = %s\n", var);
 	home = ft_get_cd (command, "HOME");
 	chdir(home);
 	ft_get_pwd(command, var);
