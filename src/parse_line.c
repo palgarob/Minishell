@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 22:34:17 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/23 11:39:27 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/23 12:08:54 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ char	**parse_line(char *line)
 	if (!args)
 		return (NULL);
 	if (syntax(args))
-		return (write(STDERR_FILENO, ERR_SYNTAX, ft_strlen(ERR_SYNTAX)),
+		return (write(STDERR_FILENO, "Syntax error\n", 13),
 			ft_splitfree(args), NULL);
 	return (args);
 }

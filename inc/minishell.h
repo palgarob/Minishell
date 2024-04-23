@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:23:30 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/23 11:38:06 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/23 12:08:11 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 # include <readline/history.h>
 # include <signal.h>
 # include <sys/wait.h>
-
-# define ERR_SYNTAX "Syntax error"
 
 typedef struct s_command
 {
