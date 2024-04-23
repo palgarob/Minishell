@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 15:27:17 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/22 11:02:27 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/23 21:25:44 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,18 @@ static unsigned char	get_number(char *s)
 	return (n);
 }
 
-static int	count_spaces(char *s)
+unsigned char	ft_atoc(char *str)
 {
 	int	i;
 
 	i = 0;
-	while (*s == ' ' || *s == '\t' || *s == '\v'
-		|| *s == '\f' || *s == '\r' || *s == '\n')
+	while (*str == ' ' || *str == '\t' || *str == '\v'
+		|| *str == '\f' || *str == '\r' || *str == '\n')
 	{
 		i++;
-		s++;
+		str++;
 	}
-	return (i);
-}
-
-unsigned char	ft_atoc(char *str)
-{
-	str += count_spaces((char *)str);
+	str += i;
 	if (*str == '-')
 		return (get_number((char *)str + 1) * -1);
 	if (*str == '+')
@@ -49,27 +44,29 @@ unsigned char	ft_atoc(char *str)
 	return (get_number((char *)str));
 }
 
-unsigned char	exit_with_arg(char **arguments)
+bool	is_numeric(char *arguments)
 {
 	int				i;
 
-	i = count_spaces(arguments[1]);
-	if (arguments[1][i] == '-'
-		|| arguments[1][i] == '+')
+	i = 0;
+	while (arguments[i] == ' ' || arguments[i] == '\t' || arguments[i] == '\v'
+		|| arguments[i] == '\f' || arguments[i] == '\r' || arguments[i] == '\n')
 		i++;
-	while (arguments[1][i])
+	if (arguments[i] == '-'
+		|| arguments[i] == '+')
+		i++;
+	while (arguments[i])
 	{
-		if (!ft_isdigit(arguments[1][i++]))
+		if (!ft_isdigit(arguments[i++]))
 		{
-			return (255);
 			write(STDERR_FILENO, "exit: ", 6);
-			write(STDERR_FILENO, arguments[1],
-				ft_strlen(arguments[1]));
+			write(STDERR_FILENO, arguments,
+				ft_strlen(arguments));
 			write(STDERR_FILENO, ": numeric argument required\n", 28);
-			break ;
+			return (false);
 		}
 	}
-	return (ft_atoc(arguments[1]));
+	return (true);
 }
 
 int	ft_exit(t_shell shell)
@@ -80,12 +77,17 @@ int	ft_exit(t_shell shell)
 	printf("exit\n");
 	if (shell.first_command.arguments[1])
 	{
-		if (shell.first_command.arguments[2])
+		if (is_numeric(shell.first_command.arguments[1]))
 		{
-			write(STDERR_FILENO, "exit: too many arguments\n", 25);
-			return (1);
+			if (shell.first_command.arguments[2])
+			{
+				write(STDERR_FILENO, "exit: too many arguments\n", 25);
+				return (1);
+			}
+			status = ft_atoc(shell.first_command.arguments[1]);
 		}
-		status = exit_with_arg(shell.first_command.arguments);
+		else
+			status = 255;
 	}
 	ft_splitfree(shell.mini_env);
 	ft_splitfree(shell.first_command.arguments);
