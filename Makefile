@@ -21,7 +21,7 @@ OBJ		= $(addsuffix .o,$(addprefix $(OBJ_DIR)/,$(FILES)))
 all : ft $(NAME)
 
 $(NAME) : $(OBJ)
-	$(CC) -g3 -fsanitize=address $(OBJ) $(LDFLAGS) $(LDLIBS) -o $(NAME)
+	$(CC) -g3 $(OBJ) $(LDFLAGS) $(LDLIBS) -o $(NAME)
 
 $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c
 	mkdir -p $(OBJ_DIR)
