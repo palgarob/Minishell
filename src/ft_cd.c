@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 10:02:00 by incalero          #+#    #+#             */
-/*   Updated: 2024/04/21 22:19:39 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/22 14:49:02 by incalero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static int	ft_get_pwd(t_command *command, char *var)
 	pwd = ft_strjoin("PWD=", new);
 	if (ft_var_exist(command, pwd) == 0)
 		ft_add_var(command, pwd);
+	free (pwd);
 	return (0);
 }
 
@@ -62,22 +63,25 @@ static int	ft_change_directory(t_command *command, const char *directory)
 	if (directory != NULL && directory[0] == '-')
 	{
 		if (chdir(ft_get_cd (command, "OLDPWD=")) != 0)
-			return (perror(""), 1);
+			return (free (var), perror(""), 1);
 		ft_get_pwd(command, var);
 		printf("%s\n", getcwd(cwd, sizeof(cwd)));
+		free (var);
 	}
 	else if (directory == NULL || directory[0] == '~')
 	{
 		if (chdir(ft_get_cd (command, "HOME=")) != 0)
-			return (perror(""), 1);
+			return (free (var), perror(""), 1);
 		ft_get_pwd(command, var);
+		free (var);
 	}
 	else
 	{
 		if (chdir(directory) != 0)
-			return (write (1, "minishell: cd: ", 15),
+			return (free (var), write (1, "minishell: cd: ", 15),
 				perror((char *)directory), 1);
 		ft_get_pwd(command, var);
+		free (var);
 	}
 	return (0);
 }
@@ -87,6 +91,6 @@ int	ft_cd(t_command *command)
 	if (command->arguments[1] == NULL)
 		ft_change_directory(command, NULL);
 	else
-		ft_change_directory(command, command->arguments[1]);
+		return (ft_change_directory(command, command->arguments[1]));
 	return (0);
 }
