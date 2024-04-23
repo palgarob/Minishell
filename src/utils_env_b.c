@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_env_b.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: incalero <incalero@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 09:42:54 by incalero          #+#    #+#             */
-/*   Updated: 2024/04/17 09:48:09 by incalero         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:56:48 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,33 @@ char	**ft_dell_var(t_command *command, char *var)
 	ft_dell(env, envcpy, var_nbr);
 	ft_splitfree(env);
 	return (envcpy);
+}
+
+int	ft_change_directory(t_command *command, const char *directory)
+{
+	char	cwd[1024];
+	char	*var;
+
+	var = ft_strjoin("OLDPWD=", getcwd(cwd, sizeof(cwd)));
+	if (chdir(directory) != 0)
+		return (free (var), write (1, "minishell: cd: ", 15),
+			perror((char *)directory), 1);
+	ft_get_pwd(command, var);
+	return (free (var), 0);
+}
+
+int	ft_get_pwd(t_command *command, char *var)
+{
+	char	cwd[1024];
+	char	*new;
+	char	*pwd;
+
+	new = getcwd(cwd, sizeof(cwd));
+	if (ft_var_exist(command, var) == 0)
+		ft_add_var(command, var);
+	pwd = ft_strjoin("PWD=", new);
+	if (ft_var_exist(command, pwd) == 0)
+		ft_add_var(command, pwd);
+	free (pwd);
+	return (0);
 }

@@ -11,24 +11,25 @@ CFLAGS	= -Wall -Wextra -Werror -I$(INC_DIR) -I$(HOME)/.brew/Cellar/readline/8.2.
 LDFLAGS	= -Llibft-improved -L$(HOME)/.brew/Cellar/readline/8.2.10/lib
 LDLIBS	= -lft -lreadline
 
-FILES	= $(basename $(notdir $(wildcard src/*.c)))
+FILES	= builtins clear_commands exec_commands expand_parameters ft_cd \
+			ft_echo ft_env ft_exit ft_export ft_pwd ft_unset here_doc \
+			init_commands minishell parse_line redirect_io utils_env_b \
+			utils_env utils
 SRC		= $(addsuffix .c,$(addprefix $(SRC_DIR)/,$(FILES)))
 OBJ		= $(addsuffix .o,$(addprefix $(OBJ_DIR)/,$(FILES)))
 
 .PHONY : all re clean fclean ft
-.SILENT :
+#.SILENT :
 
-all : ft $(NAME)
+all : $(NAME)
 
 $(NAME) : $(OBJ)
+	$(MAKE) -C $(FT_DIR)
 	$(CC) $(OBJ) $(LDFLAGS) $(LDLIBS) -o $(NAME)
 
 $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c
 	mkdir -p $(OBJ_DIR)
 	$(CC) -c $< $(CFLAGS) -o $@
-
-ft :
-	$(MAKE) -C $(FT_DIR)
 
 re : fclean all
 
