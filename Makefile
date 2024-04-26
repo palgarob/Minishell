@@ -24,6 +24,7 @@ OBJ		= $(addsuffix .o,$(addprefix $(OBJ_DIR)/,$(FILES)))
 all : $(NAME)
 
 $(NAME) : $(OBJ)
+	echo "set echo-control-characters Off" > ${HOME}/.inputrc;
 	$(MAKE) -C $(FT_DIR)
 	$(CC) $(OBJ) $(LDFLAGS) $(LDLIBS) -o $(NAME)
 
