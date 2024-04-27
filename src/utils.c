@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 14:31:42 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/23 14:36:35 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/27 23:35:07 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ bool	is_metachar(char c)
 	return (false);
 }
 
-char	*ft_getenv(char *var_name, char **mini_env)//free memory
+char	*ft_getenv(char *var_name, char **mini_env)
 {
 	char	*value;
 
