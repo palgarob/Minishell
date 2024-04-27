@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:23:30 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/23 14:41:31 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/27 10:39:20 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,6 @@ int		here_doc(t_command *command, char **split_line);
 void	clear_commands(t_command command);
 void	close_pipes(t_command command);
 void	perror_exit(void);
-void	close_input_fd(t_command command);
+void	close_fd(t_command command, int io);
 
 #endif
