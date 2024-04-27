@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 22:34:17 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/23 12:08:54 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/23 21:00:34 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,11 @@ static char	**split_line(char *line)
 			else
 				position = stract_argument(line, &split);
 			if (!position)
-				return (ft_splitfree(split), NULL);
+			{
+				if (split)
+					ft_splitfree(split);
+				return (NULL);
+			}
 			line += position;
 		}
 	}
