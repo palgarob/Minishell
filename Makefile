@@ -6,7 +6,7 @@
 #    By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/28 00:26:32 by pepaloma          #+#    #+#              #
-#    Updated: 2024/04/28 00:26:33 by pepaloma         ###   ########.fr        #
+#    Updated: 2024/04/28 14:01:30 by pepaloma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,9 +36,10 @@ OBJ		= $(addsuffix .o,$(addprefix $(OBJ_DIR)/,$(FILES)))
 all : $(NAME)
 
 $(NAME) : $(OBJ)
-	echo "set echo-control-characters Off" > ${HOME}/.inputrc;
 	$(MAKE) -C $(FT_DIR)
 	$(CC) $(OBJ) $(CFLAGS) $(LDFLAGS) $(LDLIBS) -o $(NAME)
+	if ! [ -f ${HOME}/.inputrc ]; then \
+	echo "set echo-control-characters Off" > ${HOME}/.inputrc; fi
 
 $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c
 	mkdir -p $(OBJ_DIR)

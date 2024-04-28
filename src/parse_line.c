@@ -39,14 +39,14 @@ static int	stract_argument(char *line, char ***split_ptr)
 
 	position = 0;
 	while (!is_metachar(line[position]) && line[position] != 32
-		&& line[position])
+		&& line[position] && line[position] != 9)
 	{
 		if (line[position] == '"' || line[position] == '\'')
 		{
 			quote = line[position++];
 			while (line[position] != quote)
 				if (!line[position++])
-					return (perror("Unclosed quotes"), 0);
+					return (write(1, "Syntax error\n", 13), 0);
 		}
 		position++;
 	}

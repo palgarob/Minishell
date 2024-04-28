@@ -75,23 +75,18 @@ int	expand_parameters(char **split_line, bool ignore_quotes,
 {
 	int		j;
 
-	j = -1;
-	while ((*split_line)[++j])
+	j = 0;
+	while ((*split_line)[j])
 	{
 		if ((*split_line)[j] == '\'' && !ignore_quotes)
-		{
 			while ((*split_line)[++j] != '\'')
 				;
-			j++;
-		}
 		else if ((*split_line)[j] == '"' && !ignore_quotes)
-		{
 			while ((*split_line)[++j] != '"')
 				search_expansion(split_line, mini_env, les, j);
-			j++;
-		}
 		else
 			search_expansion(split_line, mini_env, les, j);
+		j++;
 	}
 	if (!ignore_quotes)
 		trim_quotes(split_line);

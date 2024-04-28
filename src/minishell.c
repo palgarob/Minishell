@@ -21,6 +21,8 @@ static void	interactive_m(int signum)
 		rl_on_new_line();
 		rl_redisplay();
 	}
+	if (signum == SIGQUIT)
+		printf("\033[2C");
 }
 
 static void	default_m(int signum)
@@ -28,7 +30,7 @@ static void	default_m(int signum)
 	if (signum == SIGINT)
 		ft_printf("\n");
 	if (signum == SIGQUIT)
-		printf("Quit: 3\n");
+		printf("Quit\n");
 }
 
 static void	enter(t_shell *shell, char *line)

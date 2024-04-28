@@ -53,9 +53,9 @@ int	trim_quotes(char **split_line)
 	int		quote;
 	int		n;
 
-	j = -1;
+	j = 0;
 	n = 0;
-	while ((*split_line)[++j])
+	while ((*split_line)[j])
 	{
 		if ((*split_line)[j] == '"' || (*split_line)[j] == '\'')
 		{
@@ -68,6 +68,8 @@ int	trim_quotes(char **split_line)
 			if (ft_strins(split_line, j, j + 1, ""))
 				return (-1);
 		}
+		if ((*split_line)[j])
+			j++;
 	}
 	return (n);
 }
