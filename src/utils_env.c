@@ -45,11 +45,11 @@ int	ft_var_is_ok(char *s)
 	j = 0;
 	while (s[j] != '\0' && s[j] != '=')
 		j++;
-	if (s[0] != '_' && !ft_isalpha(s[0])) 
+	if (s[0] != '_' && !ft_isalpha(s[0]))
 		return (printf("export: '%s': not a valid identifier\n", s), 1);
 	while (s[i] && i < j)
 	{
-		if (s[0] != '_' && !ft_isalnum(s[0])) 
+		if (s[0] != '_' && !ft_isalnum(s[0]))
 			return (printf("export: '%s': not a valid identifier\n", s), 1);
 		i++;
 	}
