@@ -87,7 +87,7 @@ int	ft_export(t_command *command)
 		while (command->arguments[i] && i < nbr)
 		{
 			var = command->arguments[i];
-			if (ft_var_is_ok(command, var))
+			if (ft_var_is_ok(var))
 				return (1);
 			if (ft_var_exist(command, var) == 0)
 				ft_add_var(command, var);

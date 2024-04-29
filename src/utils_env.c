@@ -36,7 +36,7 @@ int	ft_is_equal(char *s)
 		return (1);
 }
 
-int	ft_var_is_ok(t_command *command, char *s)
+int	ft_var_is_ok(char *s)
 {
 	int	i;
 	int	j;
@@ -45,16 +45,12 @@ int	ft_var_is_ok(t_command *command, char *s)
 	j = 0;
 	while (s[j] != '\0' && s[j] != '=')
 		j++;
+	if (s[0] != '_' && !ft_isalpha(s[0]))
+		return (printf("export: '%s': not a valid identifier\n", s), 1);
 	while (s[i] && i < j)
 	{
-		if (!((s[0] == '_') || (s[0] >= 'A' && s[0] <= 'Z')
-				|| (s[0] >= 'a' && s[0] <= 'z')))
-			return (printf("minishell: %s: '%s': not a valid identifier\n",
-					command->arguments[0], s), 1);
-		if (!((s[i] >= 'A' && s[i] <= 'Z') || (s[i] >= 'a' && s[i] <= 'z')
-				|| (s[i] >= '0' && s[i] <= '9') || (s[i] == '=')))
-			return (printf("minishell: %s: '%s': not a valid identifier\n",
-					command->arguments[0], s), 1);
+		if (s[0] != '_' && !ft_isalnum(s[0]))
+			return (printf("export: '%s': not a valid identifier\n", s), 1);
 		i++;
 	}
 	return (0);

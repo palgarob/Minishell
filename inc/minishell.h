@@ -63,7 +63,7 @@ int		ft_env(t_command *command);
 
 size_t	ft_str_equal_len(char *s);
 int		ft_is_equal(char *s);
-int		ft_var_is_ok(t_command *command, char *s);
+int		ft_var_is_ok(char *s);
 int		ft_var_exist(t_command *command, char *var);
 void	ft_add_var(t_command *command, char *var);
 char	**ft_dell_var(t_command *command, char *var);
