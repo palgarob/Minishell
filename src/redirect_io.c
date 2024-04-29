@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 16:15:43 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/27 10:43:03 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/29 09:44:35 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,10 @@
 
 static int	output(t_command *command, char **split_line)
 {
-	close_fd(*command, 0);
+	close_fd(*command, 1);
 	if (expand_parameters(split_line + 1, false,
 			command->shell->mini_env, command->shell->les))
 		return (1);
-	if (command->close_out)
-		close(command->close_out);
 	if (*(*split_line + 1) == '>')
 		command->output = open(*(split_line + 1),
 				O_CREAT | O_WRONLY | O_APPEND, 0644);
@@ -41,7 +39,7 @@ int	redirect_io(t_command *command, char **split_line)
 	}
 	else
 	{
-		close_fd(*command, 1);
+		close_fd(*command, 0);
 		if (*(*split_line + 1) == '<')
 		{
 			if (here_doc(command, split_line))

@@ -6,7 +6,7 @@
 /*   By: pepaloma <pepaloma@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:41:35 by pepaloma          #+#    #+#             */
-/*   Updated: 2024/04/18 21:30:43 by pepaloma         ###   ########.fr       */
+/*   Updated: 2024/04/29 09:54:20 by pepaloma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ static int	here_doc1(t_command *command, char **split_line)
 	}
 	if (content)
 		write(command->input, content, ft_strlen(content));
+	free(content);
 	close(command->input);
 	return (0);
 }
